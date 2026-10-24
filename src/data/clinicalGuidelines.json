@@ -1,51 +1,67 @@
 [
   {
-    "id": "guideline_pcos_rotterdam",
-    "slug": "pcos-rotterdam-criteria",
-    "category": "pcos",
-    "title_en": "PCOS Diagnostic Guidelines & Rotterdam Criteria",
-    "title_hi": "पीसीओएस निदान दिशानिर्देश और रॉटरडैम मानदंड",
-    "source": "Monash / FOGSI Consensus Guidelines (2023)",
-    "summary_en": "PCOS is diagnosed when at least 2 of 3 features are present: irregular/delayed ovulatory cycles, biochemical or physical signs of excess androgens, and polycystic ovarian morphology on ultrasound.",
-    "summary_hi": "पीसीओएस का निदान तब किया जाता है जब 3 में से कम से कम 2 लक्षण मौजूद हों: अनियमित ओव्यूलेशन, एण्ड्रोजन की अधिकता, और अल्ट्रासाउंड पर पॉलीसिस्टिक ओवरी लक्षण।",
-    "clinical_takeaways": [
-      "Pelvic ultrasound is NOT mandatory for adolescents (first 8 years after menarche).",
-      "Lifestyle and low-glycemic dietary interventions are first-line therapy.",
-      "Combined oral contraceptives or cyclic progestogens maintain endometrial health."
-    ],
-    "keywords": ["pcos", "rotterdam", "irregular periods", "androgen", "acne", "facial hair", "weight", "insulin"]
-  },
-  {
-    "id": "guideline_endometriosis_acog",
-    "slug": "endometriosis-diagnosis-management",
-    "category": "endometriosis",
-    "title_en": "Clinical Management of Chronic Pelvic Pain & Endometriosis",
-    "title_hi": "क्रोनिक पेल्विक दर्द और एंडोमेट्रियोसिस का चिकित्सकीय प्रबंधन",
-    "source": "ACOG Practice Bulletin No. 114 / FOGSI Clinical Opinion",
-    "summary_en": "Severe dysmenorrhea that interferes with work or school is NOT normal. First-line therapy includes NSAIDs (mefenamic acid) combined with hormonal suppression.",
-    "summary_hi": "अत्यधिक मासिक धर्म दर्द जो सामान्य दैनिक कार्यों को बाधित करे, वह सामान्य नहीं है। पहली पंक्ति के उपचार में गैर-स्टेरायडल दर्द निवारक और हार्मोनल संतुलन शामिल हैं।",
-    "clinical_takeaways": [
-      "Normal pelvic examination does not rule out peritoneal endometriosis.",
-      "Laparoscopy with histological confirmation remains the definitive gold standard.",
-      "Early multimodal management significantly prevents chronic central pain sensitization."
-    ],
-    "keywords": ["endometriosis", "pelvic pain", "dysmenorrhea", "cramps", "heavy bleeding", "laparoscopy", "ultrasound"]
-  },
-  {
-    "id": "guideline_dysmenorrhea_triage",
-    "slug": "primary-vs-secondary-dysmenorrhea",
+    "id": "guideline_who_adolescent_pain",
+    "slug": "who-disruptive-period-pain",
     "category": "cycle_basics",
-    "title_en": "Primary vs Secondary Dysmenorrhea Triage",
-    "title_hi": "प्राथमिक बनाम द्वितीयक मासिक धर्म दर्द वर्गीकरण",
-    "source": "FOGSI Good Clinical Practice Recommendations",
-    "summary_en": "Primary dysmenorrhea begins with ovulatory cycles (usually within 6-12 months of menarche) mediated by prostaglandin F2-alpha. Secondary dysmenorrhea develops later and often involves structural pelvic pathology.",
-    "summary_hi": "प्राथमिक दर्द आमतौर पर प्रोस्टाग्लैंडीन के कारण होता है। जबकि बाद के वर्षों में शुरू होने वाला तीव्र दर्द पेल्विक विकारों का संकेत हो सकता है।",
+    "title_en": "WHO Standards: Disruptive Menstrual Pain & School/College Impact",
+    "title_hi": "विश्व स्वास्थ्य संगठन (WHO): दैनिक गतिविधियों व कॉलेज को बाधित करने वाला माहवारी दर्द",
+    "source": "World Health Organization (WHO) Adolescent Health Guidelines",
+    "summary_en": "Disruptive menstrual pain that interferes with school, college, or work attendance is NOT 'just part of being a woman'. It represents clinically significant dysmenorrhea requiring supportive comfort care and medical assessment if persistent.",
+    "summary_hi": "माहवारी का ऐसा दर्द जो स्कूल, कॉलेज या काम पर जाने से रोके, वह 'सिर्फ सामान्य दर्द' नहीं है। यह चिकित्सकीय रूप से महत्वपूर्ण है और इसके लिए जांच व सही देखभाल आवश्यक है।",
     "clinical_takeaways": [
-      "Red flag symptoms: pain lasting beyond cycle day 3, pain radiating down legs, deep dyspareunia, or syncope.",
-      "Heat therapy (40°C heating pad) is clinically proven equivalent to mild analgesics.",
-      "Warm sesame oil massage and restorative yoga postures provide somatic relief."
+      "Pain causing absence from education/work warrants proactive gynecological consultation.",
+      "First-line comfort: Localized continuous heat therapy (40°C), hydration, and sleep.",
+      "Track symptom severity, onset, and duration across 2-3 cycles to prepare a clinical summary for doctors."
     ],
-    "keywords": ["cramps", "pain", "dysmenorrhea", "prostaglandins", "heat pack", "heating pad", "fainting", "relief"]
+    "keywords": ["college", "school", "absence", "severe pain", "bahut dard", "dard", "mushkil", "disruptive", "work", "bed rest"]
+  },
+  {
+    "id": "guideline_nhs_period_pain",
+    "slug": "nhs-period-pain-dysmenorrhea",
+    "category": "cycle_basics",
+    "title_en": "NHS Clinical Guidance: Period Pain Management & Triage",
+    "title_hi": "एनएचएस (NHS) मार्गदर्शन: माहवारी दर्द का सुरक्षित प्रबंधन और प्राथमिक उपचार",
+    "source": "National Health Service (NHS, UK) Clinical Guidelines",
+    "summary_en": "Period pain (dysmenorrhea) is caused by uterine contractions mediated by prostaglandins. Mild pain is manageable with heat and rest, but intense pain accompanied by heavy bleeding, vomiting, or spreading to the back/legs should be medically evaluated.",
+    "summary_hi": "माहवारी दर्द गर्भाशय की मांसपेशियों में संकुचन के कारण होता है। हल्का दर्द गर्म सिकाई और आराम से ठीक हो जाता है, लेकिन अगर दर्द अत्यधिक हो या पीठ व पैरों में फैले तो डॉक्टर से परामर्श लें।",
+    "clinical_takeaways": [
+      "Heat patches or hot water bottles are clinically as effective as mild analgesics.",
+      "Gentle movements like swimming, walking, and pelvic stretches relieve pelvic tension.",
+      "Never ignore sudden worsening pain or pain that standard comfort measures fail to touch."
+    ],
+    "keywords": ["nhs", "period pain", "cramps", "heat therapy", "hot water", "pelvic", "worsening", "duration", "severity"]
+  },
+  {
+    "id": "guideline_womens_health_pcos",
+    "slug": "womens-health-pcos-guidance",
+    "category": "pcos",
+    "title_en": "Office on Women's Health: PCOS, Insulin Resistance & Ovulation",
+    "title_hi": "ऑफिस ऑन विमेंस हेल्थ: पीसीओएस, इंसुलिन संवेदनशीलता और ओव्यूलेशन",
+    "source": "Office on Women's Health (U.S. Department of Health and Human Services) & Monash",
+    "summary_en": "PCOS affects approximately 1 in 10 women. Characterized by infrequent or prolonged periods, excess androgen levels, and metabolic sensitivity. Lifestyle interventions, high-fiber meal sequencing, and sleep optimization form foundational first-line management.",
+    "summary_hi": "पीसीओएस 10 में से 1 महिला को प्रभावित करता है। इसके मुख्य लक्षण हैं अनियमित चक्र, एण्ड्रोजन की अधिकता और इंसुलिन संवेदनशीलता। संतुलित खानपान और तनाव मुक्ति इसके प्रबंधन के मुख्य आधार हैं।",
+    "clinical_takeaways": [
+      "Meal sequencing: Eat vegetables and proteins before carbohydrates to blunt glucose and insulin spikes.",
+      "Spearmint (pudina) infusion provides natural anti-androgenic metabolic support.",
+      "PCOS is manageable; early awareness supports fertility and long-term metabolic health."
+    ],
+    "keywords": ["office on women's health", "pcos", "pcod", "irregular", "insulin", "androgen", "acne", "facial hair", "weight", "ovulation"]
+  },
+  {
+    "id": "guideline_who_endometriosis",
+    "slug": "who-endometriosis-fact-sheet",
+    "category": "endometriosis",
+    "title_en": "WHO Guidance: Endometriosis Recognition & Deep Pelvic Pain",
+    "title_hi": "विश्व स्वास्थ्य संगठन (WHO): एंडोमेट्रियोसिस और क्रोनिक पेल्विक दर्द",
+    "source": "World Health Organization (WHO) Endometriosis Guidelines & ACOG",
+    "summary_en": "Endometriosis is a systemic disease where tissue similar to the uterine lining grows outside the uterus. Characterized by severe pelvic pain during menstruation, deep pain during bowel movements, chronic fatigue, and heavy bleeding.",
+    "summary_hi": "एंडोमेट्रियोसिस में गर्भाशय जैसी कोशिकाएं गर्भाशय के बाहर बढ़ने लगती हैं। इसके मुख्य लक्षण हैं माहवारी के दौरान गहरा दर्द, अत्यधिक थकान और भारी रक्तस्राव।",
+    "clinical_takeaways": [
+      "Pain is real and must not be dismissed as psychological or 'normal cramps'.",
+      "Specialized high-resolution ultrasound or pelvic MRI can assist in identifying deep infiltrating nodules.",
+      "Multimodal care: Anti-inflammatory nutrition, pelvic physical therapy, and expert gynecological care."
+    ],
+    "keywords": ["who", "endometriosis", "deep pain", "severe cramps", "radiating pain", "pelvic ache", "fatigue", "acog"]
   },
   {
     "id": "guideline_menstrual_hygiene_nhm",
@@ -64,19 +80,19 @@
     "keywords": ["hygiene", "pads", "menstrual cup", "tampon", "infection", "rash", "itching", "cleaning"]
   },
   {
-    "id": "guideline_cycle_regularity",
+    "id": "guideline_cycle_regularity_figo",
     "slug": "cycle-length-normal-variability",
     "category": "cycle_basics",
     "title_en": "Normal Menstrual Cycle Variability Across Age Groups",
     "title_hi": "विभिन्न आयु वर्गों में मासिक धर्म चक्र की सामान्य विविधता",
-    "source": "FIGO (International Federation of Gynecology and Obstetrics)",
-    "summary_en": "Normal cycle duration in adult women is 24 to 38 days with cycle-to-cycle variation of up to 7 to 9 days. In adolescents, cycles may vary between 21 to 45 days.",
-    "summary_hi": "वयस्क महिलाओं में सामान्य चक्र 24 से 38 दिनों का होता है, जिसमें 7 से 9 दिनों का अंतर सामान्य माना जाता है। किशोरियों में यह 21 से 45 दिन तक हो सकता है।",
+    "source": "FIGO (International Federation of Gynecology and Obstetrics) / FOGSI",
+    "summary_en": "Normal cycle duration in adult women is 24 to 38 days with cycle-to-cycle variation of up to 7 to 9 days. In adolescents, cycles may vary between 21 to 45 days. Transient delays are often linked to cortisol (stress), travel, or sleep changes.",
+    "summary_hi": "वयस्क महिलाओं में सामान्य चक्र 24 से 38 दिनों का होता है। किशोरियों में यह 21 से 45 दिन तक हो सकता है। तनाव, यात्रा या नींद की कमी से कभी-कभार देरी होना सामान्य है।",
     "clinical_takeaways": [
       "Single isolated late cycles are frequently triggered by transient cortisol spikes, illness, or travel.",
       "Absence of bleeding for 90 days (secondary amenorrhea) requires diagnostic investigation.",
       "Tracking cycle start dates for 3 consecutive cycles provides the baseline regularity index."
     ],
-    "keywords": ["cycle length", "late period", "regularity", "normal cycle", "days late", "variability", "figo"]
+    "keywords": ["cycle length", "late period", "regularity", "normal cycle", "days late", "variability", "figo", "fogsi"]
   }
 ]
