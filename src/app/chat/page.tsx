@@ -197,12 +197,19 @@ export default function ChatPage() {
     setIsTyping(true);
 
     // Call /api/chat which uses Gemini 3.8 Flash server-side with local RAG fallback
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 7000);
+
     fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text, language }),
+      signal: controller.signal,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        clearTimeout(timeoutId);
+        return res.json();
+      })
       .then((data) => {
         const assistantMsg: ChatMessage = {
           id: "sah_" + Date.now(),
