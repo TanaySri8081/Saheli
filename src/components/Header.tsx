@@ -58,6 +58,40 @@ export function Header() {
     speakText(speechContent);
   };
 
+  const desktopNavItems = [
+    {
+      href: "/",
+      label: language === "hi" ? "डैशबोर्ड" : "Dashboard",
+      icon: "home",
+      exact: true,
+    },
+    {
+      href: "/my-cycle",
+      label: language === "hi" ? "माहवारी चक्र" : "My Cycle",
+      icon: "calendar_month",
+      exact: false,
+    },
+    {
+      href: "/care",
+      label: language === "hi" ? "आहार व पोषण" : "Care & Nutrition",
+      icon: "spa",
+      exact: false,
+    },
+    {
+      href: "/chat",
+      label: language === "hi" ? "सहेली साथी" : "Ask Saheli",
+      icon: "auto_awesome",
+      exact: false,
+      badge: "CarePath",
+    },
+    {
+      href: "/learn",
+      label: language === "hi" ? "पुस्तकालय" : "Health Library",
+      icon: "menu_book",
+      exact: false,
+    },
+  ];
+
   return (
     <header className="sticky top-0 z-40 bg-[#fff7fa]/90 backdrop-blur-md border-b border-outline-variant/30 transition-all">
       {/* Top Clinical Disclaimer Strip */}
@@ -69,11 +103,12 @@ export function Header() {
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo & Tap Counter for Camouflage */}
-        <div
+        <Link
+          href="/"
           onClick={recordLogoTap}
-          className="flex items-center gap-2.5 cursor-pointer select-none group"
+          className="flex items-center gap-2.5 cursor-pointer select-none group flex-shrink-0"
           title="Triple-tap to disguise screen"
         >
           <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-serif text-lg italic shadow-warm-sm group-active:scale-95 transition-transform">
@@ -92,7 +127,41 @@ export function Header() {
               {isOnboarding ? "Setup" : "Care Sanctuary"}
             </span>
           </div>
-        </div>
+        </Link>
+
+        {/* Desktop Central Navigation Links */}
+        {!isOnboarding && (
+          <nav className="hidden md:flex items-center gap-1 lg:gap-1.5 bg-surface-container/60 p-1 rounded-full border border-outline-variant/30">
+            {desktopNavItems.map((item) => {
+              const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    active
+                      ? "bg-primary text-white shadow-warm-sm"
+                      : "text-on-surface-variant hover:text-primary hover:bg-surface-container-high"
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-[16px]">{item.icon}</span>
+                  <span>{item.label}</span>
+                  {item.badge && (
+                    <span
+                      className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ${
+                        active
+                          ? "bg-white/20 text-white"
+                          : "bg-primary/10 text-primary"
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
 
         {/* Right Utility Actions */}
         <div className="flex items-center gap-2">

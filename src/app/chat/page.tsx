@@ -358,7 +358,7 @@ export default function ChatPage() {
   ];
 
   return (
-    <main className="flex-1 w-full px-4 pt-3 pb-28 flex flex-col justify-between max-w-md mx-auto min-h-[calc(100vh-8rem)]">
+    <main className="flex-1 w-full pt-3 pb-28 md:pb-24 flex flex-col justify-between max-w-md md:max-w-3xl lg:max-w-4xl mx-auto min-h-[calc(100vh-8rem)]">
       {/* 1. Header with Saheli CarePath Journey Brand */}
       <section className="pb-2.5 border-b border-outline-variant/30 space-y-2">
         <div className="flex items-center justify-between">
@@ -658,7 +658,7 @@ export default function ChatPage() {
       </div>
 
       {/* 4. Sticky Input Dock with Voice STT & User Correction */}
-      <div className="fixed bottom-16 left-0 right-0 max-w-md mx-auto px-4 z-30 pb-2 space-y-1">
+      <div className="fixed bottom-16 md:bottom-2 left-0 right-0 max-w-md md:max-w-3xl lg:max-w-4xl mx-auto px-4 z-30 pb-2 space-y-1">
         {/* STT Notice Banner (Step 01: Transcribe & User Correction) */}
         {sttNotice && (
           <div className="p-2 rounded-xl bg-surface-container-highest text-on-surface-variant text-[11px] border border-primary/30 flex items-center justify-between shadow-sm animate-fadeIn">

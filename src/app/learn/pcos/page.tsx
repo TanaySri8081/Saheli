@@ -148,7 +148,7 @@ export default function PcosPage() {
   ];
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto pb-24">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6 pb-24 md:pb-12">
       {/* 1. Header Navigation & Audio Narrator */}
       <section className="space-y-2">
         <Link
@@ -225,8 +225,8 @@ export default function PcosPage() {
             : "Ultrasound appearance alone does NOT equal PCOS. International guidelines mandate at least 2 of these 3 features:"}
         </p>
 
-        <div className="space-y-1.5 text-xs">
-          <div className="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 flex gap-2 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+          <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20 flex gap-2 items-start">
             <span className="font-bold text-primary text-xs">1.</span>
             <div>
               <span className="font-semibold text-primary block">
@@ -271,7 +271,7 @@ export default function PcosPage() {
           <span>{language === "hi" ? "सामान्य भ्रम बनाम क्लिनिकल सच्चाई" : "Common Misconceptions vs Facts"}</span>
         </h3>
 
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {misconceptions.map((item, idx) => (
             <div key={idx} className="p-3 rounded-xl bg-surface-container border border-outline-variant/20 space-y-1 text-xs">
               <span className="font-semibold text-error block">
@@ -297,7 +297,7 @@ export default function PcosPage() {
             : "Before concluding PCOS, clinicians must rule out overlapping endocrine conditions:"}
         </p>
 
-        <div className="space-y-2 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
           {similarConditions.map((cond, idx) => (
             <div key={idx} className="p-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 space-y-1">
               <span className="font-semibold text-primary block">
@@ -314,9 +314,12 @@ export default function PcosPage() {
         </div>
       </section>
 
-      {/* 6. Direct In-Page Symptom & Cycle Logger (Screenshot Requirement) */}
-      <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
-        <div className="flex items-center justify-between">
+      {/* Two-Column Responsive Layout on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Direct In-Page Symptom & Cycle Logger */}
+        <div className="lg:col-span-7">
+          <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
+            <div className="flex items-center justify-between">
           <h3 className="font-serif text-base font-bold text-primary flex items-center gap-1.5">
             <span className="material-symbols-outlined text-[18px] text-primary">edit_calendar</span>
             <span>{language === "hi" ? "अनियमित चक्र या लक्षण दर्ज करें" : "Record Irregular Cycle / Symptoms"}</span>
@@ -407,13 +410,15 @@ export default function PcosPage() {
               {language === "hi" ? "✓ लक्षण सहेली डायरी में सफलतापूर्वक सहेज लिए गए!" : "✓ Saved directly into your cycle diary!"}
             </div>
           )}
-        </form>
-      </section>
+          </form>
+        </section>
+        </div>
 
-      {/* 7. Clinician Consultation Questions */}
-      <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="font-serif text-base font-bold text-primary">
+        {/* Right Column: Clinician Consultation Questions */}
+        <div className="lg:col-span-5">
+          <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-serif text-base font-bold text-primary">
             {language === "hi" ? "डॉक्टर से क्या पूछें?" : "Questions for Your Clinician"}
           </h3>
           <button
@@ -445,6 +450,8 @@ export default function PcosPage() {
           ))}
         </div>
       </section>
+        </div>
+      </div>
     </main>
   );
 }

@@ -148,7 +148,7 @@ export default function SymptomsPage() {
   };
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6 max-w-4xl mx-auto pb-24 md:pb-12">
       {/* 1. Header & Date Navigator */}
       <section className="flex items-center justify-between">
         <div>

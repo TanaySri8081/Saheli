@@ -121,7 +121,7 @@ export default function LearnPage() {
   });
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6">
       {/* 1. Header & Medical Advisory Badge */}
       <section>
         <div className="flex items-center gap-2 mb-1">
@@ -185,6 +185,8 @@ export default function LearnPage() {
           {language === "hi" ? "प्रमुख मार्गदर्शिकाएँ (Deep Dives)" : "Featured Clinical Guides"}
         </h3>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
         {/* PCOS Banner */}
         <Link
           href="/learn/pcos"
@@ -242,6 +244,7 @@ export default function LearnPage() {
             </span>
           </div>
         </Link>
+        </div>
       </section>
 
       {/* 5. Interactive Myth vs. Fact Cards */}
@@ -258,7 +261,7 @@ export default function LearnPage() {
           </div>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {MYTHS.map((item, idx) => {
             const isExpanded = expandedMyth === idx;
             return (
@@ -301,7 +304,7 @@ export default function LearnPage() {
           {language === "hi" ? "स्वास्थ्य लेख" : "Clinical Articles"}
         </h3>
 
-        <div className="space-y-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredArticles.map((article) => {
             const CardWrapper = article.link ? Link : "div";
             return (

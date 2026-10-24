@@ -118,14 +118,14 @@ export default function MyCyclePage() {
   };
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6">
       {/* 1. Month Navigation Header */}
-      <section className="flex items-center justify-between">
+      <section className="flex items-center justify-between pb-3 border-b border-outline-variant/20">
         <div>
           <span className="text-[11px] font-semibold text-secondary uppercase tracking-wider">
             {language === "hi" ? "माहवारी चक्र व कैलेंडर" : "Cycle & Menstrual Calendar"}
           </span>
-          <h1 className="font-serif text-2xl font-medium text-primary">
+          <h1 className="font-serif text-2xl md:text-3xl font-medium text-primary">
             {currentMonthName} {year}
           </h1>
         </div>
@@ -154,10 +154,14 @@ export default function MyCyclePage() {
         </div>
       </section>
 
-      {/* 2. Interactive Calendar Matrix */}
-      <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm">
-        {/* Day of Week Headers */}
-        <div className="grid grid-cols-7 gap-1 text-center mb-2">
+      {/* Two-Column Responsive Grid on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Calendar Matrix & Selected Day Sheet */}
+        <div className="lg:col-span-7 flex flex-col gap-6">
+          {/* 2. Interactive Calendar Matrix */}
+          <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm">
+            {/* Day of Week Headers */}
+            <div className="grid grid-cols-7 gap-1 text-center mb-2">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, idx) => (
             <span
               key={d}
@@ -317,9 +321,12 @@ export default function MyCyclePage() {
           <span>{language === "hi" ? "विस्तृत लक्षण डायरी खोलें" : "Open Detailed Symptom Logger"}</span>
         </Link>
       </section>
+        </div>
 
-      {/* 4. Cycle Regularity & Length Statistics */}
-      <section className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-4">
+        {/* Right Column: Regularity Stats, Guidance & Doctor Export */}
+        <div className="lg:col-span-5 flex flex-col gap-6">
+          {/* 4. Cycle Regularity & Length Statistics */}
+          <section className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-4">
         <div>
           <h3 className="font-serif text-lg font-medium text-primary">
             {language === "hi" ? "चक्र नियमितता विश्लेषण" : "Cycle Regularity & Historical Rhythm"}
@@ -408,6 +415,8 @@ export default function MyCyclePage() {
           </button>
         </div>
       </section>
+        </div>
+      </div>
 
       {/* Quick Modal for Logging Period */}
       {isLoggingModalOpen && (

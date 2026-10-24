@@ -26,7 +26,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Header />
 
           {/* Centered App Container */}
-          <div className="flex-1 w-full max-w-md mx-auto flex flex-col relative pb-20">
+          <div className="flex-1 w-full max-w-md md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto flex flex-col relative pb-20 md:pb-10 px-3 sm:px-6 lg:px-8">
             {children}
           </div>
 

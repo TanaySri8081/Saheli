@@ -127,35 +127,39 @@ export default function CarePage() {
   };
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto pb-24">
-      {/* 1. Header & Evidence Disclaimer */}
-      <section className="space-y-2">
-        <div className="flex items-center gap-1.5 text-secondary">
-          <span className="material-symbols-outlined text-base">verified</span>
-          <span className="text-[10px] font-bold uppercase tracking-wider">
-            Evidence-Based Nutritional Care
-          </span>
-        </div>
-        <h1 className="font-serif text-2xl font-medium text-primary">
-          {language === "hi" ? "रसोई व साक्ष्य-आधारित पोषण" : "Kitchen Sanctuary & Nutrition"}
-        </h1>
-
-        {/* Clinical Guardrail Disclaimer Banner */}
-        <div className="p-3 rounded-xl bg-surface-container border border-outline-variant/30 text-xs text-on-surface-variant leading-relaxed space-y-1">
-          <div className="flex items-center gap-1.5 font-bold text-primary">
-            <span className="material-symbols-outlined text-[16px]">info</span>
-            <span>{language === "hi" ? "चिकित्सीय स्पष्टीकरण:" : "Clinical Scope & Safety:"}</span>
+    <main className="flex-1 w-full py-5 flex flex-col gap-6 pb-24 md:pb-12">
+      {/* Top Banner & Hydration Grid on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        {/* 1. Header & Evidence Disclaimer */}
+        <section className="lg:col-span-7 space-y-2 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-1.5 text-secondary mb-1">
+              <span className="material-symbols-outlined text-base">verified</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                Evidence-Based Nutritional Care
+              </span>
+            </div>
+            <h1 className="font-serif text-2xl md:text-3xl font-medium text-primary">
+              {language === "hi" ? "रसोई व साक्ष्य-आधारित पोषण" : "Kitchen Sanctuary & Nutrition"}
+            </h1>
           </div>
-          <p className="text-[11px]">
-            {language === "hi"
-              ? "सहेली पोषण सुझाव पेट के आराम और सूक्ष्म पोषक तत्वों की भरपाई हेतु हैं। कोई भी आहार पीसीओएस को 'जड़ से खत्म' करने या एंडोमेट्रियोसिस को ठीक करने का दावा नहीं करता। यदि लक्षण गंभीर या लगातार बने रहें, तो डॉक्टर से परामर्श लें।"
-              : "Nutritional suggestions support digestive comfort and micronutrient replenishment. We do not claim any diet 'cures' PCOS or treats endometriosis. If symptoms are severe or persistent, seek professional clinical assessment."}
-          </p>
-        </div>
-      </section>
 
-      {/* 2. Interactive Matka Hydration Tracker */}
-      <section className="p-4 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-2.5">
+          {/* Clinical Guardrail Disclaimer Banner */}
+          <div className="p-3.5 rounded-xl bg-surface-container border border-outline-variant/30 text-xs text-on-surface-variant leading-relaxed space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-primary">
+              <span className="material-symbols-outlined text-[16px]">info</span>
+              <span>{language === "hi" ? "चिकित्सीय स्पष्टीकरण:" : "Clinical Scope & Safety:"}</span>
+            </div>
+            <p className="text-[11px]">
+              {language === "hi"
+                ? "सहेली पोषण सुझाव पेट के आराम और सूक्ष्म पोषक तत्वों की भरपाई हेतु हैं। कोई भी आहार पीसीओएस को 'जड़ से खत्म' करने या एंडोमेट्रियोसिस को ठीक करने का दावा नहीं करता। यदि लक्षण गंभीर या लगातार बने रहें, तो डॉक्टर से परामर्श लें।"
+                : "Nutritional suggestions support digestive comfort and micronutrient replenishment. We do not claim any diet 'cures' PCOS or treats endometriosis. If symptoms are severe or persistent, seek professional clinical assessment."}
+            </p>
+          </div>
+        </section>
+
+        {/* 2. Interactive Matka Hydration Tracker */}
+        <section className="lg:col-span-5 p-4 rounded-2xl bg-surface-container border border-outline-variant/30 flex flex-col justify-between space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-10 h-10 rounded-xl bg-secondary-container text-secondary flex items-center justify-center text-xl shadow-sm">
@@ -196,6 +200,7 @@ export default function CarePage() {
           />
         </div>
       </section>
+      </div>
 
       {/* 3. Sub-Navigation Tabs */}
       <section className="flex bg-surface-container p-1 rounded-2xl border border-outline-variant/30 text-xs font-semibold">
@@ -358,8 +363,8 @@ export default function CarePage() {
             </div>
           </div>
 
-          {/* Recipes Stream */}
-          <div className="space-y-3">
+          {/* Recipes Stream in Responsive Multi-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((item) => (
                 <div
@@ -450,8 +455,8 @@ export default function CarePage() {
 
       {/* TAB 2: IRON + VITAMIN C PAIRING GUIDE */}
       {activeTab === "ironGuide" && (
-        <section className="space-y-3 animate-fadeIn">
-          <div className="p-4 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-2">
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 animate-fadeIn">
+          <div className="lg:col-span-5 p-5 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-2.5 flex flex-col justify-center">
             <div className="flex items-center gap-1.5 text-primary font-bold text-xs uppercase">
               <span className="material-symbols-outlined text-base">science</span>
               <span>{language === "hi" ? "आयरन अवशोषण का वैज्ञानिक नियम" : "WHO Science: Iron Bioavailability"}</span>
@@ -463,7 +468,7 @@ export default function CarePage() {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 space-y-2.5">
+          <div className="lg:col-span-7 p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 space-y-2.5">
             <h4 className="font-serif text-sm font-bold text-primary">
               {language === "hi" ? "आदर्श भारतीय आयरन + विटामिन C जोड़ियां" : "Gold-Standard Indian Pairings"}
             </h4>
@@ -500,7 +505,7 @@ export default function CarePage() {
               </p>
             </div>
 
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {BLOATING_TRIGGER_OPTIONS.map((opt) => {
                 const isSelected = personalBloatTriggers.includes(opt.id);
                 return (

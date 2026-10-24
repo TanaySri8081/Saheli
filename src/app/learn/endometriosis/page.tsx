@@ -79,7 +79,7 @@ export default function EndometriosisPage() {
   };
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto pb-24">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6 pb-24 md:pb-12">
       {/* 1. Header Navigation & Audio Narrator */}
       <section className="space-y-2">
         <Link
@@ -148,7 +148,8 @@ export default function EndometriosisPage() {
           <span>{language === "hi" ? "दर्द की गंभीरता और व्यक्तिगत विविधता" : "Pain Reality & Severity Variation"}</span>
         </h2>
 
-        <div className="p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20 space-y-1.5 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 space-y-1.5 text-xs">
           <span className="font-bold text-tertiary block">
             {language === "hi" ? "1. दर्द का स्तर बीमारी के आकार पर निर्भर नहीं करता:" : "1. Disease Extent Does NOT Equal Pain Agony:"}
           </span>
@@ -178,11 +179,15 @@ export default function EndometriosisPage() {
             </li>
           </ul>
         </div>
+        </div>
       </section>
 
-      {/* 4. Interactive Pain & Symptom Diary (Screenshot Requirement) */}
-      <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
-        <div className="flex items-center justify-between">
+      {/* Two-Column Responsive Grid on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: Interactive Pain & Symptom Diary */}
+        <div className="lg:col-span-7">
+          <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
+            <div className="flex items-center justify-between">
           <h3 className="font-serif text-base font-bold text-primary flex items-center gap-1.5">
             <span className="material-symbols-outlined text-[18px] text-tertiary">history_edu</span>
             <span>{language === "hi" ? "पेल्विक दर्द डायरी (Pain Diary)" : "Interactive Pain & Symptom Diary"}</span>
@@ -316,13 +321,15 @@ export default function EndometriosisPage() {
               {language === "hi" ? "✓ दर्द का रिकॉर्ड सफलतापूर्वक सहेज लिया गया!" : "✓ Pain entry logged into your clinical history!"}
             </div>
           )}
-        </form>
-      </section>
+          </form>
+        </section>
+        </div>
 
-      {/* 5. Preparing for Medical Appointment Guide */}
-      <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="font-serif text-base font-bold text-primary">
+        {/* Right Column: Preparing for Medical Appointment Guide */}
+        <div className="lg:col-span-5">
+          <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-serif text-base font-bold text-primary">
             {language === "hi" ? "डॉक्टर परामर्श तैयारी गाइड" : "Preparing for Your Appointment"}
           </h3>
           <button
@@ -354,6 +361,8 @@ export default function EndometriosisPage() {
           ))}
         </div>
       </section>
+        </div>
+      </div>
     </main>
   );
 }

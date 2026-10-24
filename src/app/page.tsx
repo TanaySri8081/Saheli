@@ -103,14 +103,14 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 w-full px-4 py-5 flex flex-col gap-5 max-w-md mx-auto">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6">
       {/* 1. Header Greeting & Audio Summary */}
-      <section className="flex items-center justify-between">
+      <section className="flex items-center justify-between pb-3 border-b border-outline-variant/20">
         <div>
-          <h1 className="font-serif text-2xl font-medium text-primary">
+          <h1 className="font-serif text-2xl md:text-3xl font-medium text-primary">
             {greeting}, {userName}
           </h1>
-          <p className="font-sans text-xs text-on-surface-variant">
+          <p className="font-sans text-xs md:text-sm text-on-surface-variant">
             {language === "hi"
               ? "आज अपने लिए थोड़ा कोमल और शांत समय निकालें।"
               : "Take a gentle, mindful moment for yourself today."}
@@ -119,7 +119,7 @@ export default function Home() {
 
         <button
           onClick={handleDailyAudioSummary}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
             isSpeaking
               ? "bg-primary text-white animate-pulse"
               : "bg-surface-container text-primary hover:bg-surface-container-high border border-outline-variant/30"
@@ -132,6 +132,11 @@ export default function Home() {
           <span>{isSpeaking ? (language === "hi" ? "सुन रहे हैं" : "Speaking") : (language === "hi" ? "सुनें" : "Listen")}</span>
         </button>
       </section>
+
+      {/* Responsive Two-Column Grid on Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Primary Column: Cycle Progress & Daily Check-in */}
+        <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
 
       {/* 2. SVG Circular Cycle Ring & Phase Hero */}
       <section className="p-6 rounded-2xl bg-surface-container border border-outline-variant/30 shadow-warm-sm">
@@ -421,6 +426,10 @@ export default function Home() {
           </div>
         )}
       </section>
+        </div>
+
+        {/* Right Secondary Column: Ask Saheli AI, Phase Nutrition, Guides & Privacy */}
+        <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
 
       {/* 4. Ask Saheli AI Prompt Bar */}
       <section className="p-4 rounded-2xl bg-surface-container border border-outline-variant/30">
@@ -558,6 +567,21 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+        {/* 7. Privacy & Device Sandbox Assurance Card */}
+        <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 text-xs text-on-surface-variant space-y-2">
+          <div className="flex items-center gap-2 text-primary font-semibold">
+            <span className="material-symbols-outlined text-lg">shield_lock</span>
+            <span>{language === "hi" ? "100% ऑन-डिवाइस सुरक्षित" : "100% On-Device Privacy"}</span>
+          </div>
+          <p className="text-[11px] leading-relaxed text-outline">
+            {language === "hi"
+              ? "आपका स्वास्थ्य डेटा आपके डिवाइस से बाहर कभी नहीं भेजा जाता। कोई बाहरी विज्ञापन या ट्रैकर नहीं।"
+              : "All symptom logs and cycle computations remain strictly confidential in your browser sandbox."}
+          </p>
+        </section>
+      </div>
+      </div>
     </main>
   );
 }
