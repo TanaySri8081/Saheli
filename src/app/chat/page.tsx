@@ -84,28 +84,60 @@ export default function ChatPage() {
     setInputText("");
     setIsTyping(true);
 
-    // Simulate gentle clinical processing
-    setTimeout(() => {
-      const clinicalResult = queryClinicalRag(text, language);
-      const assistantMsg: ChatMessage = {
-        id: "sah_" + Date.now(),
-        sender: "saheli",
-        textEn: clinicalResult.answerEn,
-        textHi: clinicalResult.answerHi,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        clinicalData: clinicalResult,
-      };
-
-      const updated = [...newMessages, assistantMsg];
-      setMessages(updated);
-      setIsTyping(false);
-
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      } catch (e) {
-        console.warn("Storage full", e);
-      }
-    }, 700);
+    // Route through /api/chat with Gemini RAG pipeline + local fallback
+    fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, language }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const assistantMsg: ChatMessage = {
+          id: "sah_" + Date.now(),
+          sender: "saheli",
+          textEn: data.response || "No response generated.",
+          textHi: data.response || "कोई उत्तर नहीं मिला।",
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          clinicalData: {
+            answerEn: data.response,
+            answerHi: data.response,
+            citation: data.citation || "FOGSI / ACOG Clinical Guidelines",
+            actionProtocolEn: data.actionSteps || [],
+            actionProtocolHi: data.actionSteps || [],
+            isEmergency: Boolean(data.isEmergency),
+            emergencyNoticeEn: data.emergencyNotice,
+            emergencyNoticeHi: data.emergencyNotice,
+          },
+        };
+        const updated = [...newMessages, assistantMsg];
+        setMessages(updated);
+        setIsTyping(false);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch (e) {
+          console.warn("Storage full", e);
+        }
+      })
+      .catch(() => {
+        // Fallback to local clinical RAG on offline/error
+        const clinicalResult = queryClinicalRag(text, language);
+        const assistantMsg: ChatMessage = {
+          id: "sah_" + Date.now(),
+          sender: "saheli",
+          textEn: clinicalResult.answerEn,
+          textHi: clinicalResult.answerHi,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          clinicalData: clinicalResult,
+        };
+        const updated = [...newMessages, assistantMsg];
+        setMessages(updated);
+        setIsTyping(false);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch (e) {
+          console.warn("Storage full", e);
+        }
+      });
   };
 
   const handleClearChat = () => {

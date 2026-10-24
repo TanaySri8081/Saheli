@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { queryClinicalRag } from "@/lib/clinicalRag";
+import { askSaheliWithGemini } from "@/lib/geminiService";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,18 +14,18 @@ export async function POST(request: NextRequest) {
     }
 
     const lang = language === "hi" ? "hi" : "en";
-    const ragResult = queryClinicalRag(message.trim(), lang);
+    const ragResult = await askSaheliWithGemini(message.trim(), lang);
 
     return NextResponse.json({
       status: "success",
       query: message,
       language: lang,
-      response: lang === "hi" ? ragResult.answerHi : ragResult.answerEn,
+      response: ragResult.answer,
       citation: ragResult.citation,
-      actionSteps: lang === "hi" ? ragResult.actionProtocolHi : ragResult.actionProtocolEn,
+      actionSteps: ragResult.actionSteps,
       isEmergency: ragResult.isEmergency,
-      emergencyNotice:
-        lang === "hi" ? ragResult.emergencyNoticeHi : ragResult.emergencyNoticeEn,
+      emergencyNotice: ragResult.emergencyNotice,
+      source: ragResult.source,
       disclaimer:
         lang === "hi"
           ? "यह एआई सहायता केवल शैक्षिक मार्गदर्शन के लिए है और डॉक्टर के परामर्श का विकल्प नहीं है।"
