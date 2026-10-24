@@ -1,0 +1,82 @@
+[
+  {
+    "id": "guideline_pcos_rotterdam",
+    "slug": "pcos-rotterdam-criteria",
+    "category": "pcos",
+    "title_en": "PCOS Diagnostic Guidelines & Rotterdam Criteria",
+    "title_hi": "पीसीओएस निदान दिशानिर्देश और रॉटरडैम मानदंड",
+    "source": "Monash / FOGSI Consensus Guidelines (2023)",
+    "summary_en": "PCOS is diagnosed when at least 2 of 3 features are present: irregular/delayed ovulatory cycles, biochemical or physical signs of excess androgens, and polycystic ovarian morphology on ultrasound.",
+    "summary_hi": "पीसीओएस का निदान तब किया जाता है जब 3 में से कम से कम 2 लक्षण मौजूद हों: अनियमित ओव्यूलेशन, एण्ड्रोजन की अधिकता, और अल्ट्रासाउंड पर पॉलीसिस्टिक ओवरी लक्षण।",
+    "clinical_takeaways": [
+      "Pelvic ultrasound is NOT mandatory for adolescents (first 8 years after menarche).",
+      "Lifestyle and low-glycemic dietary interventions are first-line therapy.",
+      "Combined oral contraceptives or cyclic progestogens maintain endometrial health."
+    ],
+    "keywords": ["pcos", "rotterdam", "irregular periods", "androgen", "acne", "facial hair", "weight", "insulin"]
+  },
+  {
+    "id": "guideline_endometriosis_acog",
+    "slug": "endometriosis-diagnosis-management",
+    "category": "endometriosis",
+    "title_en": "Clinical Management of Chronic Pelvic Pain & Endometriosis",
+    "title_hi": "क्रोनिक पेल्विक दर्द और एंडोमेट्रियोसिस का चिकित्सकीय प्रबंधन",
+    "source": "ACOG Practice Bulletin No. 114 / FOGSI Clinical Opinion",
+    "summary_en": "Severe dysmenorrhea that interferes with work or school is NOT normal. First-line therapy includes NSAIDs (mefenamic acid) combined with hormonal suppression.",
+    "summary_hi": "अत्यधिक मासिक धर्म दर्द जो सामान्य दैनिक कार्यों को बाधित करे, वह सामान्य नहीं है। पहली पंक्ति के उपचार में गैर-स्टेरायडल दर्द निवारक और हार्मोनल संतुलन शामिल हैं।",
+    "clinical_takeaways": [
+      "Normal pelvic examination does not rule out peritoneal endometriosis.",
+      "Laparoscopy with histological confirmation remains the definitive gold standard.",
+      "Early multimodal management significantly prevents chronic central pain sensitization."
+    ],
+    "keywords": ["endometriosis", "pelvic pain", "dysmenorrhea", "cramps", "heavy bleeding", "laparoscopy", "ultrasound"]
+  },
+  {
+    "id": "guideline_dysmenorrhea_triage",
+    "slug": "primary-vs-secondary-dysmenorrhea",
+    "category": "cycle_basics",
+    "title_en": "Primary vs Secondary Dysmenorrhea Triage",
+    "title_hi": "प्राथमिक बनाम द्वितीयक मासिक धर्म दर्द वर्गीकरण",
+    "source": "FOGSI Good Clinical Practice Recommendations",
+    "summary_en": "Primary dysmenorrhea begins with ovulatory cycles (usually within 6-12 months of menarche) mediated by prostaglandin F2-alpha. Secondary dysmenorrhea develops later and often involves structural pelvic pathology.",
+    "summary_hi": "प्राथमिक दर्द आमतौर पर प्रोस्टाग्लैंडीन के कारण होता है। जबकि बाद के वर्षों में शुरू होने वाला तीव्र दर्द पेल्विक विकारों का संकेत हो सकता है।",
+    "clinical_takeaways": [
+      "Red flag symptoms: pain lasting beyond cycle day 3, pain radiating down legs, deep dyspareunia, or syncope.",
+      "Heat therapy (40°C heating pad) is clinically proven equivalent to mild analgesics.",
+      "Warm sesame oil massage and restorative yoga postures provide somatic relief."
+    ],
+    "keywords": ["cramps", "pain", "dysmenorrhea", "prostaglandins", "heat pack", "heating pad", "fainting", "relief"]
+  },
+  {
+    "id": "guideline_menstrual_hygiene_nhm",
+    "slug": "hygiene-safety-infection-prevention",
+    "category": "adolescent",
+    "title_en": "Menstrual Hygiene Practices & Infection Prevention",
+    "title_hi": "मासिक धर्म स्वच्छता और संक्रमण रोकथाम दिशानिर्देश",
+    "source": "National Health Mission (NHM India) / Ministry of Health",
+    "summary_en": "Safe absorbent changing every 4 to 6 hours prevents bacterial vaginosis, pelvic inflammatory disease, and toxic shock syndrome. Wash external vulva with plain warm water only.",
+    "summary_hi": "हर 4 से 6 घंटे में पैड बदलना बैक्टीरियल और फंगल संक्रमण से बचाता है। अंतरंग अंगों को केवल सादे गुनगुने पानी से धोएं, सुगंधित साबुनों का प्रयोग न करें।",
+    "clinical_takeaways": [
+      "Never use scented chemical douches or harsh bath soaps internally.",
+      "Cotton underwear allows breathability and reduces yeast colonization.",
+      "Boil silicone menstrual cups in rolling boiling water for 5-7 minutes between cycles."
+    ],
+    "keywords": ["hygiene", "pads", "menstrual cup", "tampon", "infection", "rash", "itching", "cleaning"]
+  },
+  {
+    "id": "guideline_cycle_regularity",
+    "slug": "cycle-length-normal-variability",
+    "category": "cycle_basics",
+    "title_en": "Normal Menstrual Cycle Variability Across Age Groups",
+    "title_hi": "विभिन्न आयु वर्गों में मासिक धर्म चक्र की सामान्य विविधता",
+    "source": "FIGO (International Federation of Gynecology and Obstetrics)",
+    "summary_en": "Normal cycle duration in adult women is 24 to 38 days with cycle-to-cycle variation of up to 7 to 9 days. In adolescents, cycles may vary between 21 to 45 days.",
+    "summary_hi": "वयस्क महिलाओं में सामान्य चक्र 24 से 38 दिनों का होता है, जिसमें 7 से 9 दिनों का अंतर सामान्य माना जाता है। किशोरियों में यह 21 से 45 दिन तक हो सकता है।",
+    "clinical_takeaways": [
+      "Single isolated late cycles are frequently triggered by transient cortisol spikes, illness, or travel.",
+      "Absence of bleeding for 90 days (secondary amenorrhea) requires diagnostic investigation.",
+      "Tracking cycle start dates for 3 consecutive cycles provides the baseline regularity index."
+    ],
+    "keywords": ["cycle length", "late period", "regularity", "normal cycle", "days late", "variability", "figo"]
+  }
+]

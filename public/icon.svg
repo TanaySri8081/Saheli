@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#482e47"/>
+  <circle cx="256" cy="256" r="180" fill="#60445f" opacity="0.4"/>
+  <!-- Gentle organic lotus / petal motif -->
+  <path d="M256 120 C220 190 180 250 180 310 C180 355 214 392 256 392 C298 392 332 355 332 310 C332 250 292 190 256 120 Z" fill="#ffdad4" opacity="0.95"/>
+  <path d="M256 180 C230 230 200 280 200 320 C200 350 225 376 256 376 C287 376 312 350 312 320 C312 280 282 230 256 180 Z" fill="#fbb6aa"/>
+  <path d="M256 220 C242 255 224 290 224 320 C224 340 238 358 256 358 C274 358 288 340 288 320 C288 290 270 255 256 220 Z" fill="#ffffff" opacity="0.9"/>
+  <!-- Leaf wellness accents -->
+  <path d="M180 320 C130 310 110 270 120 230 C150 240 175 280 180 320 Z" fill="#c5eccc" opacity="0.85"/>
+  <path d="M332 320 C382 310 402 270 392 230 C362 240 337 280 332 320 Z" fill="#c5eccc" opacity="0.85"/>
+</svg>
