@@ -23,7 +23,10 @@ export const metadata: Metadata = {
     "A free-first, privacy-focused menstrual health companion for education, cycle awareness, hormonal nutrition, and accessible healthcare resources.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/logo-icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/logo-icon.png", type: "image/png" },
+    ],
     apple: "/logo-icon.png",
   },
   appleWebApp: {

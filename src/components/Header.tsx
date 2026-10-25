@@ -9,9 +9,10 @@ import { useCamouflage } from "@/context/CamouflageContext";
 
 export function Header() {
   const pathname = usePathname();
-  const { language, setLanguage, t, speakText, stopSpeaking, isSpeaking } = useLanguage();
+  const { language, setLanguage, t, speakText, stopSpeaking, isSpeaking, supportedLanguages } = useLanguage();
   const { recordLogoTap, activateCamouflage } = useCamouflage();
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showLangMenu, setShowLangMenu] = useState(false);
 
   // If on fullscreen voice or onboarding, we may keep header minimal
   const isOnboarding = pathname === "/onboarding";
@@ -189,28 +190,61 @@ export function Header() {
             </span>
           </button>
 
-          {/* Bilingual Switcher Toggle */}
-          <div className="flex items-center bg-surface-container p-0.5 rounded-full border border-outline-variant/40">
+          {/* Multilingual Selector Dropdown */}
+          <div className="relative">
             <button
-              onClick={() => setLanguage("en")}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-all ${
-                language === "en"
-                  ? "bg-primary text-white shadow-sm"
-                  : "text-on-surface-variant hover:text-on-surface"
-              }`}
+              onClick={() => {
+                setShowLangMenu(!showLangMenu);
+                if (showTooltip) setShowTooltip(false);
+              }}
+              className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high transition-all text-on-surface"
+              title="Change Language / भाषा बदलें"
+              aria-label="Select Language"
             >
-              EN
+              <span className="material-symbols-outlined text-[16px] text-primary">translate</span>
+              <span className="font-sans font-medium">
+                {supportedLanguages.find((l) => l.code === language)?.nativeName || "EN"}
+              </span>
+              <span className="material-symbols-outlined text-[14px] text-outline">
+                {showLangMenu ? "expand_less" : "expand_more"}
+              </span>
             </button>
-            <button
-              onClick={() => setLanguage("hi")}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-all ${
-                language === "hi"
-                  ? "bg-primary text-white shadow-sm"
-                  : "text-on-surface-variant hover:text-on-surface"
-              }`}
-            >
-              हिंदी
-            </button>
+
+            {/* Language Dropdown Popover */}
+            {showLangMenu && (
+              <div className="absolute right-0 top-10 w-44 bg-surface rounded-2xl shadow-xl border border-outline-variant/30 py-1.5 z-50 animate-in fade-in zoom-in-95 font-sans">
+                <div className="px-3 py-1 text-[10px] font-bold text-outline uppercase tracking-wider border-b border-outline-variant/20 mb-1">
+                  Languages / भाषाएँ
+                </div>
+                {supportedLanguages.map((l) => {
+                  const isSelected = language === l.code;
+                  return (
+                    <button
+                      key={l.code}
+                      onClick={() => {
+                        setLanguage(l.code);
+                        setShowLangMenu(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-3 py-1.5 text-xs text-left transition-colors ${
+                        isSelected
+                          ? "bg-primary-fixed/50 font-bold text-primary"
+                          : "text-on-surface hover:bg-surface-container"
+                      }`}
+                    >
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="font-medium">{l.nativeName}</span>
+                        <span className="text-[10px] text-outline">({l.name})</span>
+                      </div>
+                      {isSelected && (
+                        <span className="material-symbols-outlined text-[16px] text-primary">
+                          check
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Quick Discretion / Camouflage Mode Button */}

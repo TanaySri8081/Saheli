@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const lang = language === "hi" ? "hi" : "en";
+    const validLanguages = ["en", "hi", "bn", "mr", "te", "ta", "gu"];
+    const lang = validLanguages.includes(language) ? language : "en";
     const ragResult = await askSaheliWithGemini(message.trim(), lang);
 
     return NextResponse.json({

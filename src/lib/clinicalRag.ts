@@ -1,3 +1,5 @@
+import type { Language } from "@/lib/translations";
+
 export interface ClinicalResponse {
   answerEn: string;
   answerHi: string;
@@ -147,7 +149,7 @@ const EMERGENCY_KEYWORDS = [
   "बेहोश", "चक्कर", "असहनीय दर्द", "अत्यधिक रक्तस्राव", "उल्टी", "चल नहीं पा",
 ];
 
-export function queryClinicalRag(userQuery: string, currentLanguage: "en" | "hi" = "en"): ClinicalResponse {
+export function queryClinicalRag(userQuery: string, currentLanguage: Language | string = "en"): ClinicalResponse {
   const queryLower = userQuery.toLowerCase();
 
   // 1. Check for Emergency Red Flags

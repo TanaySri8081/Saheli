@@ -18,11 +18,21 @@ export interface CarePathResponse {
 
 // Regex for fast detection of casual greetings in English, Hindi, and Hinglish
 const GREETING_PATTERNS =
-  /^(hi|hello|hey|hii+|heyy+|namaste|namaskar|pranam|good\s*(morning|afternoon|evening)|howdy|hola|yo|नमस्ते|नमस्कार|प्रणाम|सलाम|हाय|हेलो|हॅलो)($|[\s!?.,])/i;
+  /^(hi|hello|hey|hii+|heyy+|namaste|namaskar|pranam|good\s*(morning|afternoon|evening)|howdy|hola|yo|नमस्ते|नमस्कार|प्रणाम|सलाम|हाय|हेलो|হ্যাল|নমস্কার|నమస్కారం|வணக்கம்|નમસ્તે)($|[\s!?.,])/i;
+
+const LANGUAGE_NAMES: Record<string, string> = {
+  en: "English",
+  hi: "Hindi (हिंदी)",
+  bn: "Bengali (বাংলা)",
+  mr: "Marathi (मराठी)",
+  te: "Telugu (తెలుగు)",
+  ta: "Tamil (தமிழ்)",
+  gu: "Gujarati (ગુજરાતી)",
+};
 
 export async function askSaheliWithGemini(
   query: string,
-  language: "en" | "hi" = "en"
+  language: string = "en"
 ): Promise<CarePathResponse> {
   const trimmed = query.trim();
   const isHindi = language === "hi";
@@ -148,7 +158,7 @@ You are Saheli (सहेली), an empathetic, evidence-based menstrual health
 - 04 Guide: Practical comfort steps (40°C heat compress, warm ajwain/jeera tea, Supta Baddha Konasana rest).
 - 05 Prepare: 1 concise question for their doctor appointment.
 
-Language: Respond strictly in ${isHindi ? "Hindi (हिंदी)" : "English"}.
+Language: Respond strictly in ${LANGUAGE_NAMES[language] || "English"}.
 Output: Valid JSON matching:
 {
   "empathyValidation": string,
