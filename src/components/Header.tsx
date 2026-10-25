@@ -63,32 +63,32 @@ export function Header() {
   const desktopNavItems = [
     {
       href: "/",
-      label: language === "hi" ? "डैशबोर्ड" : "Dashboard",
+      label: t("navDashboard"),
       icon: "home",
       exact: true,
     },
     {
       href: "/my-cycle",
-      label: language === "hi" ? "माहवारी चक्र" : "My Cycle",
+      label: t("navCycle"),
       icon: "calendar_month",
       exact: false,
     },
     {
       href: "/care",
-      label: language === "hi" ? "आहार व पोषण" : "Care & Nutrition",
+      label: t("navCare"),
       icon: "spa",
       exact: false,
     },
     {
       href: "/chat",
-      label: language === "hi" ? "सहेली साथी" : "Ask Saheli",
+      label: t("navChat"),
       icon: "auto_awesome",
       exact: false,
       badge: "CarePath",
     },
     {
       href: "/learn",
-      label: language === "hi" ? "पुस्तकालय" : "Health Library",
+      label: t("navLibrary"),
       icon: "menu_book",
       exact: false,
     },
@@ -276,10 +276,10 @@ export function Header() {
               <div className="absolute right-0 top-11 w-56 bg-surface rounded-2xl shadow-xl border border-outline-variant/30 py-2 z-50 animate-in fade-in zoom-in-95 font-sans">
                 <div className="px-3.5 py-1.5 border-b border-outline-variant/20 mb-1">
                   <div className="text-xs font-serif font-semibold text-primary">
-                    {language === "hi" ? "नियंत्रण और गोपनीयता" : "Controls & Sanctuary"}
+                    {t("controlsTitle")}
                   </div>
                   <div className="text-[10px] text-on-surface-variant">
-                    {language === "hi" ? "100% ऑन-डिवाइस सुरक्षित" : "100% On-Device Sandbox"}
+                    {t("deviceSandbox")}
                   </div>
                 </div>
 
@@ -292,7 +292,7 @@ export function Header() {
                     alarm
                   </span>
                   <span>
-                    {language === "hi" ? "रिमाइंडर और गोपनीय अलर्ट" : "Reminders & Alerts"}
+                    {t("remindersTitle")}
                   </span>
                 </Link>
 
@@ -305,7 +305,7 @@ export function Header() {
                     shield_lock
                   </span>
                   <span>
-                    {language === "hi" ? "गोपनीयता और डेटा नियंत्रण" : "Privacy & Data Control"}
+                    {t("privacyControl")}
                   </span>
                 </Link>
 
@@ -322,7 +322,7 @@ export function Header() {
                     visibility_off
                   </span>
                   <span>
-                    {language === "hi" ? "कैलकुलेटर छद्म मोड" : "Emergency Quick Mask"}
+                    {t("emergencyMask")}
                   </span>
                 </button>
               </div>

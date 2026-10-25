@@ -38,29 +38,33 @@ export default function Home() {
   }, [router]);
 
   const [todayStr, setTodayStr] = useState<string>("2026-10-24");
-  const [greeting, setGreeting] = useState<string>(language === "hi" ? "नमस्ते" : "Good morning");
+  const [greeting, setGreeting] = useState<string>("");
   const existingLog = getSymptomForDate(todayStr);
 
   React.useEffect(() => {
     const now = new Date();
     setTodayStr(formatDate(now));
     const hr = now.getHours();
-    const gEn = hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening";
-    const gHi = hr < 12 ? "शुभ प्रभात" : hr < 17 ? "शुभ दोपहर" : "शुभ संध्या";
-    setGreeting(language === "hi" ? gHi : gEn);
-  }, [language]);
+    if (hr < 12) {
+      setGreeting(t("greetingMorning"));
+    } else if (hr < 17) {
+      setGreeting(t("greetingAfternoon"));
+    } else {
+      setGreeting(t("greetingEvening"));
+    }
+  }, [language, t]);
 
   // Daily check-in state
   const [selectedPain, setSelectedPain] = useState<number>(existingLog?.pain_level ?? 2);
   const [selectedMood, setSelectedMood] = useState<Mood>(existingLog?.mood || "calm");
-  const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>(existingLog?.symptoms || []);
+  const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>(existingLog?.symptoms || ["cramps"]);
   const [selectedFlow, setSelectedFlow] = useState<FlowIntensity>(
     (existingLog?.flow_level as FlowIntensity) || "light"
   );
   const [saveToast, setSaveToast] = useState<string | null>(null);
 
   const painDetail = getPainLevelInfo(selectedPain);
-  const userName = profile.display_name || (language === "hi" ? "सहेली" : "Saheli");
+  const userName = profile.display_name || t("appName");
 
   const toggleSymptom = (sym: string) => {
     if (selectedSymptoms.includes(sym)) {
@@ -74,11 +78,9 @@ export default function Home() {
     logSymptom({
       log_date: todayStr,
       pain_level: selectedPain,
-      symptoms: selectedSymptoms,
       mood: selectedMood,
       flow_level: selectedFlow,
-      water_ml: existingLog?.water_ml || 1250,
-      reflection: existingLog?.reflection || null,
+      symptoms: selectedSymptoms,
     });
 
     // Trigger gentle celebratory confetti
@@ -93,15 +95,32 @@ export default function Home() {
       // Ignore if confetti fails in some contexts
     }
 
-    setSaveToast(
-      language === "hi"
-        ? "✓ आज का स्वास्थ्य रिकॉर्ड डिवाइस पर सुरक्षित सहेजा गया!"
-        : "✓ Today's check-in saved safely to your device!"
-    );
-
+    setSaveToast(t("savedNotice"));
     setTimeout(() => {
       setSaveToast(null);
     }, 3500);
+  };
+
+  const getPhaseName = () => {
+    switch (currentPhaseInfo.phase) {
+      case "menstrual":
+        return t("phaseMenstrual");
+      case "follicular":
+        return t("phaseFollicular");
+      case "ovulatory":
+        return t("phaseOvulatory");
+      case "luteal":
+        return t("phaseLuteal");
+      default:
+        return t("phaseLuteal");
+    }
+  };
+
+  const getPainCategory = (score: number) => {
+    if (score === 0) return t("painNone");
+    if (score <= 3) return t("painMild");
+    if (score <= 7) return t("painModerate");
+    return t("painSevere");
   };
 
   const handleDailyAudioSummary = () => {
@@ -110,11 +129,7 @@ export default function Home() {
       return;
     }
 
-    const summaryText =
-      language === "hi"
-        ? `${greeting}, ${userName}। आज आपके चक्र का ${currentCycleDay}वां दिन है और आप ${currentPhaseInfo.phaseNameHi} में हैं। ${currentPhaseInfo.summaryHi} आज के आहार में ${currentPhaseInfo.nutritionTipHi}`
-        : `${greeting}, ${userName}. Today is Day ${currentCycleDay} of your cycle in the ${currentPhaseInfo.phaseNameEn}. ${currentPhaseInfo.summaryEn} Nutrition spotlight: ${currentPhaseInfo.nutritionTipEn}`;
-
+    const summaryText = `${greeting}, ${userName}. ${getPhaseName()}. ${t("mindfulMoment")}`;
     speakText(summaryText);
   };
 
@@ -124,7 +139,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-3">
           <div className="w-9 h-9 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
           <p className="text-xs text-on-surface-variant font-medium animate-pulse">
-            {language === "hi" ? "सहेली लोड हो रही है..." : "Opening Saheli..."}
+            {t("reading")}
           </p>
         </div>
       </div>
@@ -132,17 +147,15 @@ export default function Home() {
   }
 
   return (
-    <main className="flex-1 w-full py-5 flex flex-col gap-6">
+    <main className="flex-1 w-full py-5 flex flex-col gap-6 font-sans">
       {/* 1. Header Greeting & Audio Summary */}
       <section className="flex items-center justify-between pb-3 border-b border-outline-variant/20">
         <div>
           <h1 className="font-serif text-2xl md:text-3xl font-medium text-primary">
-            {greeting}, {userName}
+            {greeting || t("greetingMorning")}, {userName}
           </h1>
-          <p className="font-sans text-xs md:text-sm text-on-surface-variant">
-            {language === "hi"
-              ? "आज अपने लिए थोड़ा कोमल और शांत समय निकालें।"
-              : "Take a gentle, mindful moment for yourself today."}
+          <p className="font-sans text-xs md:text-sm text-on-surface-variant mt-0.5">
+            {t("mindfulMoment")}
           </p>
         </div>
 
@@ -158,7 +171,7 @@ export default function Home() {
           <span className="material-symbols-outlined text-[18px]">
             {isSpeaking ? "volume_up" : "volume_up"}
           </span>
-          <span>{isSpeaking ? (language === "hi" ? "सुन रहे हैं" : "Speaking") : (language === "hi" ? "सुनें" : "Listen")}</span>
+          <span>{isSpeaking ? t("reading") : t("readAloud")}</span>
         </button>
       </section>
 
@@ -167,449 +180,400 @@ export default function Home() {
         {/* Left Primary Column: Cycle Progress & Daily Check-in */}
         <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
 
-      {/* 2. SVG Circular Cycle Ring & Phase Hero */}
-      <section className="p-6 rounded-2xl bg-surface-container border border-outline-variant/30 shadow-warm-sm">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span
-              className="w-3 h-3 rounded-full animate-pulse"
-              style={{ backgroundColor: currentPhaseInfo.colorHex }}
-            />
-            <span
-              className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
-              style={{
-                backgroundColor: currentPhaseInfo.containerColorHex,
-                color: currentPhaseInfo.textColorHex,
-              }}
-            >
-              {language === "hi"
-                ? currentPhaseInfo.phaseNameHi
-                : currentPhaseInfo.phaseNameEn}
-            </span>
-          </div>
-
-          <span className="text-[11px] font-semibold text-outline">
-            {language === "hi" ? `औसत: ${rollingAvgLength} दिन` : `Avg: ${rollingAvgLength} Days`}
-          </span>
-        </div>
-
-        {/* Progress Ring & Countdown */}
-        <div className="flex items-center gap-5 py-2">
-          <div className="relative w-24 h-24 flex-shrink-0 flex items-center justify-center">
-            <svg className="w-24 h-24 -rotate-90" viewBox="0 0 100 100">
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke="#eddee8"
-                strokeWidth="8"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="40"
-                fill="none"
-                stroke={currentPhaseInfo.colorHex}
-                strokeWidth="8"
-                strokeDasharray="251"
-                strokeDashoffset={
-                  251 - (251 * Math.min(currentCycleDay, rollingAvgLength)) / rollingAvgLength
-                }
-                strokeLinecap="round"
-                className="transition-all duration-700"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <span className="font-serif text-2xl font-semibold leading-none text-primary">
-                {currentCycleDay}
-              </span>
-              <span className="text-[10px] text-outline font-sans">
-                {language === "hi" ? "चक्र दिन" : "Day"}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex-1">
-            <h2 className="font-serif text-xl font-medium text-primary leading-tight">
-              {prediction.isLate
-                ? language === "hi"
-                  ? `${prediction.daysLate} दिन की संभावित देरी`
-                  : `${prediction.daysLate} Days Delayed`
-                : language === "hi"
-                ? `अगली माहवारी ~${prediction.daysUntilNextPeriod} दिन में`
-                : `Next Period in ~${prediction.daysUntilNextPeriod} Days`}
-            </h2>
-            <p className="text-xs text-on-surface-variant mt-1 leading-snug">
-              {language === "hi"
-                ? `अनुमानित तिथि: ${prediction.nextPeriodStartDate} (±${prediction.uncertaintyDays} दिन)`
-                : `Est: ${prediction.nextPeriodStartDate} (Interval: ±${prediction.uncertaintyDays}d)`}
-            </p>
-            <p className="text-[10px] text-outline mt-0.5">
-              {language === "hi"
-                ? "*पूर्वानुमान केवल संदर्भ के लिए हैं, गर्भनिरोधक नहीं।"
-                : "*Estimates for awareness, not contraception."}
-            </p>
-          </div>
-        </div>
-
-        {/* Linear 4-Phase Timeline */}
-        <div className="mt-4 pt-4 border-t border-outline-variant/30">
-          <div className="flex justify-between text-[10px] font-semibold text-outline mb-1.5">
-            <span className={currentPhaseInfo.phase === "menstrual" ? "text-tertiary font-bold" : ""}>
-              {language === "hi" ? "माहवारी (1-5)" : "Menses (1-5)"}
-            </span>
-            <span className={currentPhaseInfo.phase === "follicular" ? "text-primary font-bold" : ""}>
-              {language === "hi" ? "कणिका (6-11)" : "Follicular (6-11)"}
-            </span>
-            <span className={currentPhaseInfo.phase === "ovulatory" ? "text-secondary font-bold" : ""}>
-              {language === "hi" ? "अंडोत्सर्ग (12-15)" : "Ovulation (12-15)"}
-            </span>
-            <span className={currentPhaseInfo.phase === "luteal" ? "text-primary-container font-bold" : ""}>
-              {language === "hi" ? "ल्यूटियल (16-28)" : "Luteal (16-28)"}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-4 gap-1 h-2 rounded-full overflow-hidden bg-surface-container-high">
-            <div className={`h-full rounded-l-full ${currentCycleDay <= 5 ? "bg-tertiary" : "bg-tertiary/40"}`} />
-            <div className={`h-full ${currentCycleDay > 5 && currentCycleDay <= 11 ? "bg-primary" : "bg-primary/30"}`} />
-            <div className={`h-full ${currentCycleDay > 11 && currentCycleDay <= 15 ? "bg-secondary" : "bg-secondary/40"}`} />
-            <div className={`h-full rounded-r-full ${currentCycleDay > 15 ? "bg-primary-container" : "bg-primary-container/30"}`} />
-          </div>
-        </div>
-
-        {/* Quick CTA Links */}
-        <div className="mt-4 flex gap-2">
-          <Link
-            href="/my-cycle"
-            className="flex-1 py-2 px-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-center text-xs font-semibold text-primary hover:bg-white transition-colors"
-          >
-            {language === "hi" ? "कैलेंडर विवरण देखें" : "View Full Calendar"}
-          </Link>
-          <Link
-            href="/symptoms"
-            className="flex-1 py-2 px-3 rounded-xl bg-primary text-white text-center text-xs font-semibold hover:bg-primary-container transition-colors shadow-sm"
-          >
-            {language === "hi" ? "आज का लक्षण दर्ज करें" : "Log Today's Flow"}
-          </Link>
-        </div>
-      </section>
-
-      {/* 3. Daily Check-In Module */}
-      <section className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="font-serif text-lg font-medium text-primary">
-              {language === "hi" ? "आज का चेक-इन (Daily Check-in)" : "Today's Daily Check-In"}
-            </h3>
-            <p className="text-xs text-outline">
-              {language === "hi" ? "मूड, शारीरिक संवेदना और दर्द स्तर" : "Mood, sensations, and stepped pain score"}
-            </p>
-          </div>
-          <span className="text-xs font-semibold text-primary bg-surface-container px-2.5 py-1 rounded-full">
-            {todayStr}
-          </span>
-        </div>
-
-        {/* Mood Selector Chips */}
-        <div>
-          <label className="block text-xs font-semibold text-on-surface-variant mb-2">
-            {language === "hi" ? "आज का मूड कैसा है?" : "How is your mood today?"}
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: "calm" as Mood, labelEn: "🌿 Calm", labelHi: "🌿 शांत" },
-              { id: "energized" as Mood, labelEn: "✨ Energized", labelHi: "✨ ऊर्जावान" },
-              { id: "sensitive" as Mood, labelEn: "🌸 Sensitive", labelHi: "🌸 संवेदनशील" },
-              { id: "tired" as Mood, labelEn: "🌙 Tired", labelHi: "🌙 थकान" },
-              { id: "anxious" as Mood, labelEn: "☁️ Anxious", labelHi: "☁️ चिंतित" },
-            ].map((m) => (
-              <button
-                key={m.id}
-                type="button"
-                onClick={() => setSelectedMood(m.id)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                  selectedMood === m.id
-                    ? "bg-primary text-white border-primary shadow-sm font-semibold scale-105"
-                    : "bg-surface-container text-on-surface-variant border-outline-variant/30 hover:border-outline"
-                }`}
-              >
-                {language === "hi" ? m.labelHi : m.labelEn}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Stepped Pain Scale 0-10 */}
-        <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <label className="text-xs font-semibold text-on-surface-variant">
-              {language === "hi" ? "दर्द की तीव्रता (0–10)" : "Pain Intensity (0–10)"}
-            </label>
-            <span
-              className="text-[11px] font-bold px-2 py-0.5 rounded-full uppercase"
-              style={{
-                backgroundColor: painDetail.containerColor,
-                color: painDetail.textColor,
-              }}
-            >
-              {painDetail.category} ({selectedPain}/10)
-            </span>
-          </div>
-
-          <div className="grid grid-cols-11 gap-1 my-2">
-            {Array.from({ length: 11 }, (_, i) => i).map((lvl) => {
-              const isSelected = selectedPain === lvl;
-              const info = getPainLevelInfo(lvl);
-              return (
-                <button
-                  key={lvl}
-                  type="button"
-                  onClick={() => setSelectedPain(lvl)}
-                  className={`h-9 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${
-                    isSelected
-                      ? "scale-110 shadow-md ring-2 ring-primary ring-offset-1 text-white"
-                      : "bg-surface-container hover:bg-surface-container-high text-on-surface-variant"
-                  }`}
+          {/* 2. SVG Circular Cycle Ring & Phase Hero */}
+          <section className="p-6 rounded-2xl bg-surface-container border border-outline-variant/30 shadow-warm-sm">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-3 h-3 rounded-full animate-pulse"
+                  style={{ backgroundColor: currentPhaseInfo.colorHex }}
+                />
+                <span
+                  className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
                   style={{
-                    backgroundColor: isSelected ? info.accentColor : undefined,
+                    backgroundColor: currentPhaseInfo.containerColorHex,
+                    color: currentPhaseInfo.textColorHex,
                   }}
                 >
-                  {lvl}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Pain Feedback Snippet */}
-          <div
-            className="p-3 rounded-xl border text-xs leading-relaxed"
-            style={{
-              backgroundColor: painDetail.containerColor,
-              borderColor: painDetail.accentColor + "40",
-              color: painDetail.textColor,
-            }}
-          >
-            <div className="flex items-center justify-between font-semibold mb-1">
-              <span>{language === "hi" ? painDetail.labelHi : painDetail.labelEn}</span>
-              {painDetail.isRedFlag && (
-                <span className="flex items-center gap-1 text-[11px] font-bold text-error">
-                  <span className="material-symbols-outlined text-[14px]">warning</span>
-                  <span>{language === "hi" ? "क्लीनिकल चेतावनी" : "Red Flag"}</span>
+                  {getPhaseName()}
                 </span>
-              )}
+              </div>
+
+              <span className="text-[11px] font-semibold text-outline">
+                {t("avgDays")}: {rollingAvgLength} {t("days")}
+              </span>
             </div>
-            <p className="opacity-90">{language === "hi" ? painDetail.clinicalDescriptionHi : painDetail.clinicalDescriptionEn}</p>
-          </div>
-        </div>
 
-        {/* Physical Symptom Chips */}
-        <div>
-          <label className="block text-xs font-semibold text-on-surface-variant mb-2">
-            {language === "hi" ? "शारीरिक लक्षण (Select all that apply)" : "Physical Symptoms"}
-          </label>
-          <div className="flex flex-wrap gap-1.5">
-            {[
-              { id: "cramps", labelEn: "Pelvic Cramps", labelHi: "पेट में मरोड़" },
-              { id: "headache", labelEn: "Headache", labelHi: "सिरदर्द" },
-              { id: "bloating", labelEn: "Bloating", labelHi: "पेट फूलना" },
-              { id: "tender_breasts", labelEn: "Tender Breasts", labelHi: "स्तन में संवेदनशीलता" },
-              { id: "backache", labelEn: "Lower Back Ache", labelHi: "कमर दर्द" },
-              { id: "clear_skin", labelEn: "Clear Skin", labelHi: "साफ त्वचा" },
-              { id: "fatigue", labelEn: "Fatigue", labelHi: "सुस्ती/थकान" },
-            ].map((s) => {
-              const isChecked = selectedSymptoms.includes(s.id);
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => toggleSymptom(s.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                    isChecked
-                      ? "bg-secondary-container text-[#2c4e36] border-secondary font-semibold"
-                      : "bg-surface-container text-outline border-outline-variant/30 hover:border-outline"
-                  }`}
+            {/* Progress Ring & Countdown */}
+            <div className="flex items-center gap-5 py-2">
+              <div className="relative w-24 h-24 flex-shrink-0 flex items-center justify-center">
+                <svg className="w-24 h-24 -rotate-90" viewBox="0 0 100 100">
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    fill="none"
+                    stroke="#eddee8"
+                    strokeWidth="8"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    fill="none"
+                    stroke={currentPhaseInfo.colorHex}
+                    strokeWidth="8"
+                    strokeDasharray="251"
+                    strokeDashoffset={
+                      251 - (251 * Math.min(currentCycleDay, rollingAvgLength)) / rollingAvgLength
+                    }
+                    strokeLinecap="round"
+                    className="transition-all duration-700"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="font-serif text-2xl font-bold text-primary leading-none">
+                    {currentCycleDay}
+                  </span>
+                  <span className="text-[10px] uppercase font-bold text-outline">
+                    {t("dayWord")}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex-1">
+                <h2 className="font-serif text-xl font-medium text-primary leading-tight">
+                  {prediction.isLate
+                    ? `${prediction.daysLate} ${t("daysDelayed")}`
+                    : `${t("nextPeriodIn")}${prediction.daysUntilNextPeriod} ${t("days")}`}
+                </h2>
+                <p className="text-xs text-on-surface-variant mt-1 leading-snug">
+                  {t("estimatedDate")}: {prediction.nextPeriodStartDate} ({t("avgDays")}: ±{prediction.uncertaintyDays}d)
+                </p>
+                <p className="text-[10px] text-outline mt-0.5">
+                  {t("estimatesDisclaimer")}
+                </p>
+              </div>
+            </div>
+
+            {/* Linear 4-Phase Timeline */}
+            <div className="mt-4 pt-4 border-t border-outline-variant/30">
+              <div className="flex justify-between text-[10px] font-semibold text-outline mb-1.5">
+                <span className={currentPhaseInfo.phase === "menstrual" ? "text-tertiary font-bold" : ""}>
+                  {t("phaseMenstrual")} (1-5)
+                </span>
+                <span className={currentPhaseInfo.phase === "follicular" ? "text-primary font-bold" : ""}>
+                  {t("phaseFollicular")} (6-11)
+                </span>
+                <span className={currentPhaseInfo.phase === "ovulatory" ? "text-secondary font-bold" : ""}>
+                  {t("phaseOvulatory")} (12-15)
+                </span>
+                <span className={currentPhaseInfo.phase === "luteal" ? "text-primary-container font-bold" : ""}>
+                  {t("phaseLuteal")} (16-28)
+                </span>
+              </div>
+
+              <div className="grid grid-cols-4 gap-1 h-2 rounded-full overflow-hidden bg-surface-container-high">
+                <div className={`h-full rounded-l-full ${currentCycleDay <= 5 ? "bg-tertiary" : "bg-tertiary/40"}`} />
+                <div className={`h-full ${currentCycleDay > 5 && currentCycleDay <= 11 ? "bg-primary" : "bg-primary/30"}`} />
+                <div className={`h-full ${currentCycleDay > 11 && currentCycleDay <= 15 ? "bg-secondary" : "bg-secondary/40"}`} />
+                <div className={`h-full rounded-r-full ${currentCycleDay > 15 ? "bg-primary-container" : "bg-primary-container/30"}`} />
+              </div>
+            </div>
+
+            {/* Quick CTA Links */}
+            <div className="mt-4 flex gap-2">
+              <Link
+                href="/my-cycle"
+                className="flex-1 py-2 px-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-center text-xs font-semibold text-primary hover:bg-white transition-colors"
+              >
+                {t("viewCalendar")}
+              </Link>
+              <Link
+                href="/symptoms"
+                className="flex-1 py-2 px-3 rounded-xl bg-primary text-white text-center text-xs font-semibold hover:bg-primary-container transition-colors shadow-sm"
+              >
+                {t("logTodayFlow")}
+              </Link>
+            </div>
+          </section>
+
+          {/* 3. Daily Check-In Module */}
+          <section className="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-warm-sm space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-serif text-lg font-medium text-primary">
+                  {t("dailyCheckInTitle")}
+                </h3>
+                <p className="text-xs text-outline">
+                  {t("dailyCheckInSubtitle")}
+                </p>
+              </div>
+              <span className="text-xs font-semibold text-primary bg-surface-container px-2.5 py-1 rounded-full">
+                {todayStr}
+              </span>
+            </div>
+
+            {/* Mood Selector Chips */}
+            <div>
+              <label className="block text-xs font-semibold text-on-surface-variant mb-2">
+                {t("howIsMood")}
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: "calm" as Mood, label: t("moodCalm"), emoji: "🌿" },
+                  { id: "energized" as Mood, label: t("moodEnergized"), emoji: "✨" },
+                  { id: "sensitive" as Mood, label: t("moodSensitive"), emoji: "🌸" },
+                  { id: "tired" as Mood, label: t("moodTired"), emoji: "🍌" },
+                  { id: "anxious" as Mood, label: t("moodAnxious"), emoji: "☁️" },
+                ].map((item) => {
+                  const isSelected = selectedMood === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setSelectedMood(item.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all ${
+                        isSelected
+                          ? "bg-primary text-white font-semibold shadow-sm"
+                          : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high"
+                      }`}
+                    >
+                      <span>{item.emoji}</span>
+                      <span>{item.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Stepped Pain Scale 0-10 */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-semibold text-on-surface-variant">
+                  {t("painScoreTitle")}
+                </label>
+                <span
+                  className="text-[11px] font-bold px-2 py-0.5 rounded-full uppercase"
+                  style={{
+                    backgroundColor: painDetail.containerColor,
+                    color: painDetail.textColor,
+                  }}
                 >
-                  {isChecked ? "✓ " : "+ "}
-                  {language === "hi" ? s.labelHi : s.labelEn}
-                </button>
-              );
-            })}
-          </div>
+                  {getPainCategory(selectedPain)} ({selectedPain}/10)
+                </span>
+              </div>
+
+              <div className="grid grid-cols-11 gap-1 my-2">
+                {Array.from({ length: 11 }, (_, i) => i).map((lvl) => {
+                  const isSelected = selectedPain === lvl;
+                  const info = getPainLevelInfo(lvl);
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      onClick={() => setSelectedPain(lvl)}
+                      className={`h-9 rounded-lg text-xs font-bold transition-all flex items-center justify-center ${
+                        isSelected
+                          ? "scale-110 shadow-md ring-2 ring-primary ring-offset-1 text-white"
+                          : "bg-surface-container hover:bg-surface-container-high text-on-surface-variant"
+                      }`}
+                      style={{
+                        backgroundColor: isSelected ? info.accentColor : undefined,
+                      }}
+                    >
+                      {lvl}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Physical Symptom Chips */}
+            <div>
+              <label className="block text-xs font-semibold text-on-surface-variant mb-2">
+                {t("symptomsPrompt")}
+              </label>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  { id: "cramps", label: t("symCramps") },
+                  { id: "bloating", label: t("symBloating") },
+                  { id: "fatigue", label: t("symFatigue") },
+                  { id: "headache", label: t("symHeadache") },
+                  { id: "backache", label: t("symBackache") },
+                  { id: "acne", label: t("symAcne") },
+                ].map((s) => {
+                  const isChecked = selectedSymptoms.includes(s.id);
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => toggleSymptom(s.id)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                        isChecked
+                          ? "bg-secondary-container text-[#2c4e36] border-secondary font-semibold"
+                          : "bg-surface-container text-outline border-outline-variant/30 hover:border-outline"
+                      }`}
+                    >
+                      {isChecked ? "✓ " : "+ "}
+                      {s.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Save Check-in Button */}
+            <button
+              type="button"
+              onClick={handleSaveCheckIn}
+              className="w-full h-12 rounded-xl bg-primary text-white font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-transform shadow-warm-sm cursor-pointer hover:bg-primary-container"
+            >
+              <span className="material-symbols-outlined text-lg">check</span>
+              <span>{t("saveCheckInBtn")}</span>
+            </button>
+
+            {saveToast && (
+              <div className="p-3 rounded-xl bg-secondary-container text-on-secondary-container text-xs flex items-center gap-2 animate-fadeIn font-semibold border border-secondary/30">
+                <span className="material-symbols-outlined text-base">check_circle</span>
+                <span>{saveToast}</span>
+              </div>
+            )}
+          </section>
         </div>
 
-        {/* Save Check-in Button */}
-        <button
-          type="button"
-          onClick={handleSaveCheckIn}
-          className="w-full h-12 rounded-xl bg-primary text-white font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-transform shadow-warm-sm"
-        >
-          <span className="material-symbols-outlined text-lg">check</span>
-          <span>{language === "hi" ? "आज का चेक-इन सहेजें" : "Save Today's Check-in"}</span>
-        </button>
-
-        {/* Toast confirmation */}
-        {saveToast && (
-          <div className="p-3 rounded-xl bg-secondary-container text-[#00210e] text-xs font-semibold text-center border border-secondary animate-fadeIn">
-            {saveToast}
-          </div>
-        )}
-      </section>
-        </div>
-
-        {/* Right Secondary Column: Ask Saheli AI, Phase Nutrition, Guides & Privacy */}
+        {/* Right Secondary Column: Ask Saheli AI & Nutrition */}
         <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
 
-      {/* 4. Ask Saheli AI Prompt Bar */}
-      <section className="p-4 rounded-2xl bg-surface-container border border-outline-variant/30">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="material-symbols-outlined text-tertiary text-xl">
-            auto_awesome
-          </span>
-          <h3 className="font-serif text-base font-medium text-primary">
-            {language === "hi" ? "सहेली AI से कुछ भी पूछें" : "Ask Saheli AI Companion"}
-          </h3>
-        </div>
-
-        <Link
-          href="/chat"
-          className="flex items-center justify-between w-full h-12 px-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-xs text-outline hover:border-primary transition-colors group"
-        >
-          <span>
-            {language === "hi"
-              ? "दर्द, पोषण या चक्र के बारे में बेझिझक पूछें..."
-              : "Ask about cramps, diet, or cycle changes..."}
-          </span>
-          <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
-            arrow_forward
-          </span>
-        </Link>
-
-        {/* Quick prompt chips */}
-        <div className="flex gap-1.5 mt-2 overflow-x-auto pb-1 scrollbar-none">
-          {[
-            { en: "Why cramps happen?", hi: "दर्द क्यों होता है?" },
-            { en: "Iron snacks for fatigue", hi: "थकान में क्या खाएं?" },
-            { en: "Normal cycle range", hi: "सामान्य चक्र अवधि" },
-          ].map((prompt, idx) => (
-            <Link
-              key={idx}
-              href="/chat"
-              className="px-2.5 py-1 rounded-lg bg-surface-container-lowest border border-outline-variant/30 text-[11px] text-on-surface-variant hover:text-primary whitespace-nowrap transition-colors"
-            >
-              {language === "hi" ? prompt.hi : prompt.en}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. Phase-Aligned Nutrition Spotlight */}
-      <section className="p-5 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-secondary text-2xl">
-              restaurant
-            </span>
-            <div>
+          {/* 4. Ask Saheli AI Companion Quick Card */}
+          <section className="p-5 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary text-2xl">
+                auto_awesome
+              </span>
               <h3 className="font-serif text-lg font-medium text-primary">
-                {language === "hi" ? "हार्मोनल पोषण स्पॉटलाइट" : "Hormonal Nutrition Spotlight"}
+                {t("aiCompanionTitle")}
               </h3>
-              <span className="text-[11px] text-outline">
-                {language === "hi" ? "वर्तमान चक्र चरण के अनुकूल" : "Aligned with your current phase"}
-              </span>
             </div>
-          </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-secondary-container text-[#2c4e36]">
-            {language === "hi" ? "आयरन व ऊर्जा" : "High Iron"}
-          </span>
-        </div>
 
-        <div className="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 flex gap-3.5 items-center">
-          <div className="w-12 h-12 rounded-xl bg-secondary-container text-secondary flex items-center justify-center text-2xl flex-shrink-0">
-            🍲
-          </div>
-          <div className="flex-1">
-            <h4 className="font-serif text-sm font-semibold text-primary">
-              {language === "hi" ? "पालक-मूंग दाल खिचड़ी व शुद्ध घी" : "Sprouted Moong & Palak Dal with Ghee"}
-            </h4>
-            <p className="text-xs text-on-surface-variant mt-0.5 line-clamp-2">
-              {language === "hi"
-                ? currentPhaseInfo.nutritionTipHi
-                : currentPhaseInfo.nutritionTipEn}
-            </p>
-          </div>
-        </div>
+            <Link
+              href="/chat"
+              className="flex items-center justify-between w-full h-12 px-4 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-xs text-outline hover:border-primary transition-colors group"
+            >
+              <span className="truncate pr-2">
+                {t("askPlaceholder")}
+              </span>
+              <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </Link>
 
-        <Link
-          href="/care"
-          className="flex items-center justify-between text-xs font-semibold text-secondary hover:underline pt-1"
-        >
-          <span>{language === "hi" ? "सभी घरेलू व्यंजन व मटका जल ट्रैकर देखें" : "View All Healing Recipes & Hydration Tracker"}</span>
-          <span className="material-symbols-outlined text-sm">arrow_forward</span>
-        </Link>
-      </section>
+            {/* Quick prompt chips */}
+            <div className="flex gap-1.5 mt-2 overflow-x-auto pb-1 scrollbar-none">
+              {[
+                { label: t("whyCrampsHappen") },
+                { label: t("ironSnacks") },
+                { label: t("normalCycle") },
+              ].map((prompt, idx) => (
+                <Link
+                  key={idx}
+                  href="/chat"
+                  className="px-2.5 py-1 rounded-lg bg-surface-container-lowest border border-outline-variant/30 text-[11px] text-on-surface-variant hover:text-primary whitespace-nowrap transition-colors"
+                >
+                  {prompt.label}
+                </Link>
+              ))}
+            </div>
+          </section>
 
-      {/* 6. Health Awareness & Educational Deep Dives */}
-      <section className="space-y-2.5">
-        <h3 className="font-serif text-lg font-medium text-primary">
-          {language === "hi" ? "चिकित्सीय स्वास्थ्य मार्गदर्शिकाएँ" : "Clinically Vetted Guides"}
-        </h3>
-        <div className="grid grid-cols-2 gap-2.5">
-          <Link
-            href="/learn/pcos"
-            className="p-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors border border-outline-variant/30 flex flex-col justify-between h-28"
-          >
+          {/* 5. Phase-Aligned Nutrition Spotlight */}
+          <section className="p-5 rounded-2xl bg-surface-container border border-outline-variant/30 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="material-symbols-outlined text-primary text-xl">
-                health_and_safety
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-secondary text-2xl">
+                  restaurant
+                </span>
+                <div>
+                  <h3 className="font-serif text-lg font-medium text-primary">
+                    {t("nutritionSpotlight")}
+                  </h3>
+                  <span className="text-[11px] text-outline">
+                    {t("alignedWithPhase")}
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-secondary-container text-[#2c4e36]">
+                {t("navCare")}
               </span>
-              <span className="text-[10px] font-semibold text-outline">Rotterdam</span>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-primary block leading-tight">
-                {language === "hi" ? "PCOS गाइड" : "PCOS Guide"}
-              </span>
-              <span className="text-[10px] text-outline">
-                {language === "hi" ? "लक्षण व मिथक" : "Criteria & Facts"}
-              </span>
-            </div>
-          </Link>
 
-          <Link
-            href="/learn/endometriosis"
-            className="p-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors border border-outline-variant/30 flex flex-col justify-between h-28"
-          >
-            <div className="flex items-center justify-between">
-              <span className="material-symbols-outlined text-tertiary text-xl">
-                clinical_notes
-              </span>
-              <span className="text-[10px] font-semibold text-outline">ACOG</span>
+            <div className="p-3.5 rounded-xl bg-surface-container-lowest border border-outline-variant/20 flex gap-3.5 items-center">
+              <div className="w-12 h-12 rounded-xl bg-secondary-container text-secondary flex items-center justify-center text-2xl flex-shrink-0">
+                🍲
+              </div>
+              <div className="flex-1">
+                <h4 className="font-serif text-sm font-semibold text-primary">
+                  Sprouted Moong & Palak Dal with Ghee
+                </h4>
+                <p className="text-xs text-on-surface-variant mt-0.5 line-clamp-2">
+                  {currentPhaseInfo.nutritionTipEn}
+                </p>
+              </div>
             </div>
-            <div>
-              <span className="text-xs font-semibold text-tertiary block leading-tight">
-                {language === "hi" ? "एंडोमेट्रियोसिस" : "Endometriosis"}
-              </span>
-              <span className="text-[10px] text-outline">
-                {language === "hi" ? "श्रोणि दर्द पुष्टि" : "Pelvic Care"}
-              </span>
+
+            <Link
+              href="/care"
+              className="flex items-center justify-between text-xs font-semibold text-secondary hover:underline pt-1"
+            >
+              <span>{t("viewAllRecipes")}</span>
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </Link>
+          </section>
+
+          {/* 6. Health Awareness & Educational Deep Dives */}
+          <section className="space-y-2.5">
+            <h3 className="font-serif text-lg font-medium text-primary">
+              {t("clinicalGuidesTitle")}
+            </h3>
+            <div className="grid grid-cols-2 gap-2.5">
+              <Link
+                href="/learn/pcos"
+                className="p-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors border border-outline-variant/30 flex flex-col justify-between h-28"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-primary text-xl">
+                    health_and_safety
+                  </span>
+                  <span className="text-[10px] font-semibold text-outline">Rotterdam</span>
+                </div>
+                <div>
+                  <span className="text-xs font-semibold text-primary block leading-tight">
+                    PCOS Guide
+                  </span>
+                  <span className="text-[10px] text-outline">Diagnostic & Care</span>
+                </div>
+              </Link>
+
+              <Link
+                href="/learn/endometriosis"
+                className="p-3.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors border border-outline-variant/30 flex flex-col justify-between h-28"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="material-symbols-outlined text-primary text-xl">
+                    clinical_notes
+                  </span>
+                  <span className="text-[10px] font-semibold text-outline">ACOG</span>
+                </div>
+                <div>
+                  <span className="text-xs font-semibold text-primary block leading-tight">
+                    Endometriosis
+                  </span>
+                  <span className="text-[10px] text-outline">Stepped Triage</span>
+                </div>
+              </Link>
             </div>
-          </Link>
+          </section>
         </div>
-      </section>
-
-        {/* 7. Privacy & Device Sandbox Assurance Card */}
-        <section className="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 text-xs text-on-surface-variant space-y-2">
-          <div className="flex items-center gap-2 text-primary font-semibold">
-            <span className="material-symbols-outlined text-lg">shield_lock</span>
-            <span>{language === "hi" ? "100% ऑन-डिवाइस सुरक्षित" : "100% On-Device Privacy"}</span>
-          </div>
-          <p className="text-[11px] leading-relaxed text-outline">
-            {language === "hi"
-              ? "आपका स्वास्थ्य डेटा आपके डिवाइस से बाहर कभी नहीं भेजा जाता। कोई बाहरी विज्ञापन या ट्रैकर नहीं।"
-              : "All symptom logs and cycle computations remain strictly confidential in your browser sandbox."}
-          </p>
-        </section>
-      </div>
       </div>
     </main>
   );

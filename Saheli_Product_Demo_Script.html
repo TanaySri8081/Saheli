@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saheli (सहेली) — 3-Minute Video Demo Script & Screen Recording Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,500;0,600;1,400&display=swap');
+
+    @page {
+      size: A4;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #211920;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #482e47 0%, #60445f 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(72, 46, 71, 0.15);
+    }
+
+    .header-banner h1 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-banner h1 span.hindi {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .header-banner p {
+      font-size: 13px;
+      margin-top: 6px;
+      opacity: 0.92;
+      font-weight: 400;
+    }
+
+    .badge-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: #482e47;
+      border-bottom: 2px solid #ecdfe8;
+      padding-bottom: 6px;
+      margin-top: 26px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table.timeline-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 22px;
+      font-size: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #ebdbe5;
+    }
+
+    table.timeline-table th {
+      background: #fbf0f5;
+      color: #482e47;
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+      border-bottom: 1px solid #ebdbe5;
+    }
+
+    table.timeline-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f3e9f0;
+      vertical-align: top;
+    }
+
+    table.timeline-table tr:nth-child(even) {
+      background: #fdfafd;
+    }
+
+    .scene-card {
+      background: #ffffff;
+      border: 1px solid #ebdbe5;
+      border-left: 4px solid #482e47;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .scene-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .scene-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #482e47;
+    }
+
+    .scene-time {
+      background: #fbf0f5;
+      color: #60445f;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #ecdfe8;
+    }
+
+    .screen-action-box {
+      background: #fdf7fa;
+      border: 1px dashed #d8c2d2;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+      color: #534351;
+    }
+
+    .screen-action-box strong {
+      color: #482e47;
+    }
+
+    .dialogue-box {
+      background: #fcf9fc;
+      border-left: 3px solid #82476b;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: #2b212a;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .dialogue-box strong {
+      font-style: normal;
+      color: #482e47;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .pro-tips-card {
+      background: #eef6ee;
+      border: 1px solid #c7e3c8;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      page-break-inside: avoid;
+    }
+
+    .pro-tips-card h3 {
+      color: #1e5223;
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pro-tips-card ul {
+      margin-left: 20px;
+      font-size: 12px;
+      color: #264b2a;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #8c7d8a;
+      margin-top: 30px;
+      border-top: 1px solid #ebdbe5;
+      padding-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Banner -->
+  <div class="header-banner">
+    <h1>Saheli <span class="hindi">(सहेली)</span> — Product Demo & Screen Recording Script</h1>
+    <p>Complete 3-Minute Hackathon Walkthrough with exact timestamps, screen actions, and spoken voiceovers.</p>
+    <div class="badge-bar">
+      <span class="badge">Duration: ~3 Minutes</span>
+      <span class="badge">Dual Audio: Hinglish + English</span>
+      <span class="badge">Next.js 16 • Gemini 3.8 Flash • DPDP Act 2023</span>
+    </div>
+  </div>
+
+  <!-- Timeline Flow Table -->
+  <h2 class="section-title">⏱️ Quick Timeline & Screen Map Overview</h2>
+  <table class="timeline-table">
+    <thead>
+      <tr>
+        <th style="width: 15%;">Time</th>
+        <th style="width: 30%;">Screen URL</th>
+        <th style="width: 55%;">Key Action to Perform on Screen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>0:00 – 0:35</strong></td>
+        <td><code>/onboarding</code></td>
+        <td>Show 3-step setup: Choose language (Hindi/English), set cycle rhythm & last period date, select diet, click <strong>"Complete Setup"</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>0:35 – 1:15</strong></td>
+        <td><code>/</code> (Dashboard)</td>
+        <td>Show Cycle Progress Ring. Open <strong>Language Dropdown</strong> in header and switch to <strong>বাংলা</strong> or <strong>मराठी</strong> (notice disclaimer text). Log daily mood/pain with confetti celebration!</td>
+      </tr>
+      <tr>
+        <td><strong>1:15 – 2:00</strong></td>
+        <td><code>/chat</code> (Ask Saheli)</td>
+        <td>Click suggested prompt or query cramp relief. Show <strong>5-Step CarePath</strong>, WHO/FOGSI medical citations, comfort guide, and "Add to Doctor Summary".</td>
+      </tr>
+      <tr>
+        <td><strong>2:00 – 2:35</strong></td>
+        <td><code>/care</code> & <code>/my-cycle</code></td>
+        <td>Show Phase-Synced Indian superfoods (sprouted moong, roasted chana). In My Cycle, open <strong>"Doctor Summary Report"</strong> modal.</td>
+      </tr>
+      <tr>
+        <td><strong>2:35 – 3:05</strong></td>
+        <td>Dashboard Header Logo</td>
+        <td><strong>Triple-tap Saheli Logo</strong> in header to trigger the <strong>Camouflage Calculator</strong>! Do a calculation, enter PIN <code>1234</code> to unlock.</td>
+      </tr>
+      <tr>
+        <td><strong>3:05 – 3:20</strong></td>
+        <td>Dashboard (Outro)</td>
+        <td>Smooth camera view on Saheli Sanctuary. Conclude with mission & social impact.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SCRIPT 1: HINGLISH VERSION -->
+  <h2 class="section-title">🇮🇳 Script 1: Hinglish / Hindi Version (Natural & High-Energy)</h2>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 1: The Problem & 3-Step Sovereign Onboarding</span>
+      <span class="scene-time">0:00 – 0:35</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/onboarding</code><br>
+      <strong>Actions:</strong> Select language & enter alias name (e.g. "Priya") &rarr; Step 2: Set cycle rhythm & last period date &rarr; Step 3: Select diet (Veg) & click <strong>"Complete Setup"</strong>.
+    </div>
+    <div class="dialogue-box">
+      "Namaste everyone! India me 355 million se zyada menstruating women hain, lekin aaj bhi period health par khulkar baat karna ek taboo hai. Commercial apps user ka sensitive data ad companies ko bechte hain aur local Indian context ko ignore karte hain.<br><br>
+      Meet <strong>Saheli (सहेली)</strong> — Bharat ka pehla AI-powered, privacy-first menstrual health aur cycle companion. Jab koi naya user aata hai, unhe bina kisi invasive login ya phone number ke, ek simple <strong>3-step sovereign onboarding</strong> milti hai — jahan wo apni language, cycle rhythm aur diet customize kar sakte hain."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 2: Interactive Dashboard & 7 Indian Languages</span>
+      <span class="scene-time">0:35 – 1:15</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/</code> (Home Dashboard)<br>
+      <strong>Actions:</strong> Point to Circular Cycle Ring &rarr; Open Header Language Dropdown and select <strong>"বাংলা"</strong> or <strong>"मराठी"</strong> &rarr; Log Daily Check-in (Pain 3, Mood Calm) &rarr; Confetti animation triggers! &rarr; Click Audio "Listen/सुनें" button.
+    </div>
+    <div class="dialogue-box">
+      "Setup ke baad hum aate hain Saheli ke aesthetic dashboard par. Yahan biological rhythm engine user ke next period aur current phase (jaise Luteal phase) ko predict karta hai.<br><br>
+      Sabse khaas baat — Saheli <strong>7 Indian Languages</strong> (Hindi, Bengali, Marathi, Telugu, Tamil, Gujarati aur English) ko natively support karti hai. Top header se aap ek click me language switch kar sakte hain aur pura interface native script me adapt ho jata hai. Yahan user apna daily pain score, mood aur symptoms 10-point clinical scale par track kar sakte hain with instant feedback."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 3: CarePath AI Companion (Gemini 3.8 Flash)</span>
+      <span class="scene-time">1:15 – 2:00</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/chat</code> (Ask Saheli)<br>
+      <strong>Actions:</strong> Click suggested prompt or type: <em>"I have severe cramps on Day 1, what can I do?"</em> &rarr; Highlight 5-Step CarePath badge, medical citation (WHO/FOGSI), comfort measures, and click <strong>"Add to Doctor Appointment Summary"</strong>.
+    </div>
+    <div class="dialogue-box">
+      "Ab dekhte hain hamara sabse powerful feature — <strong>Ask Saheli AI Companion</strong>. Yeh sirf ek generic chatbot nahi hai. Yeh hamare proprietary <strong>5-Step CarePath</strong> framework (Listen, Understand, Inform, Guide, Prepare) par chalta hai, powered by Google Gemini 3.8 Flash aur local clinical RAG.<br><br>
+      Har response WHO aur FOGSI guidelines se medically verified hota hai. Agar user kisi red-flag symptom jaise extreme bleeding ya fainting ki baat kare, toh system turant Emergency Triage Warning alert karta hai. Aur jo discussion points generate hote hain, unhe user ek click me apne doctor visit ke liye save kar sakta hai."
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 4: Phase-Synced Nutrition & Doctor Visit Report</span>
+      <span class="scene-time">2:00 – 2:35</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>/care</code> & <code>/my-cycle</code><br>
+      <strong>Actions:</strong> Scroll phase-specific nutrition cards (Sprouted moong, roasted chana, seed cycling) &rarr; Go to My Cycle and click <strong>"Export Doctor Summary"</strong> modal.
+    </div>
+    <div class="dialogue-box">
+      "Saheli me hamne Indian biological context ko dhyan me rakhte hue <strong>Hormonal Nutrition Spotlight</strong> banaya hai — jahan cycle ke charo phases ke hisab se desi aur affordable recipes (jaise sprouted moong, methi dana, gud-til) recommend hoti hain.<br><br>
+      Iske sath hi, My Cycle section me pichhle mahino ka poora clinical correlation ek clean <strong>Doctor Visit Report</strong> ke roop me export hota hai, taaki gynecologist consultation ke dauran patient ko apne symptoms samjhane me koi hichkichaahat na ho."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 5: Sovereign Privacy & Emergency Camouflage Mask</span>
+      <span class="scene-time">2:35 – 3:05</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> Dashboard Header Logo<br>
+      <strong>Actions:</strong> <strong>Triple-tap the Saheli Logo quickly!</strong> &rarr; Camouflage Calculator appears! Type <code>25 + 15 = 40</code> &rarr; Enter secret PIN <code>1234</code> to unlock back to Saheli.
+    </div>
+    <div class="dialogue-box">
+      "Aakhri aur sabse critical feature: <strong>Absolute Privacy Sovereignty</strong>. India ke <strong>DPDP Act 2023</strong> ke anusar, user ka koi bhi personal period data kisi server ya ad network par nahi jata — sab kuch user ke phone me encrypted rehta hai.<br><br>
+      Aur agar kisi ke aas-paas koi family member ya stranger aa jaye, toh logo par sirf 3 baar tap karte hi app instant <strong>Calculator Camouflage Mask</strong> me convert ho jata hai! Jab tak aap apna private PIN na daalein, kisi ko pata bhi nahi chalega ki yeh ek health app hai."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 6: Vision & Concluding Impact</span>
+      <span class="scene-time">3:05 – 3:20</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> Dashboard homepage (rest cursor gently on the Saheli logo and tagline).
+    </div>
+    <div class="dialogue-box">
+      "Saheli is not just a period tracker — yeh har bhartiya mahila ki ek vishwasniya, surakshit aur gopneeya swasthya saheli hai. Taboo mitana, early diagnosis facilitate karna aur women health ko empower karna — yahi hamara mission hai. Thank you!"
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SCRIPT 2: ENGLISH VERSION -->
+  <h2 class="section-title">🇬🇧 Script 2: English Version (Crisp, Formal & Hackathon-Ready)</h2>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 1: The Problem & 3-Step Sovereign Onboarding</span>
+      <span class="scene-time">0:00 – 0:35</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/onboarding</code><br>
+      <strong>Actions:</strong> Select language & enter alias name &rarr; Set cycle rhythm & last period date &rarr; Select diet & focus &rarr; Click <strong>"Complete Setup"</strong>.
+    </div>
+    <div class="dialogue-box">
+      "Over 355 million menstruating women live in India, yet reproductive health remains shrouded in silence and delayed diagnosis. Existing commercial period apps frequently harvest intimate cycle data and monetize it with third-party ad brokers.<br><br>
+      Introducing <strong>Saheli (सहेली)</strong> — India’s first AI-powered, privacy-first menstrual health and care sanctuary. When a new user lands on Saheli, they are welcomed by a lightweight <strong>3-step sovereign onboarding</strong> — personalizing language, cycle rhythm, and diet while keeping 100% of their data strictly on-device without any invasive login."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 2: Sanctuary Dashboard & 7 Indian Languages</span>
+      <span class="scene-time">0:35 – 1:15</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/</code> (Dashboard)<br>
+      <strong>Actions:</strong> Point to Circular Cycle Ring &rarr; Open Header Language Dropdown and switch to <strong>Bengali</strong> or <strong>Marathi</strong> &rarr; Complete Daily Check-in &rarr; Confetti animation &rarr; Click Listen TTS.
+    </div>
+    <div class="dialogue-box">
+      "This brings us to the Saheli Sanctuary Dashboard. The mathematical cycle engine calculates phase-specific predictions with uncertainty intervals.<br><br>
+      Because accessibility matters, Saheli natively supports <strong>7 Indian languages</strong> — English, Hindi, Bengali, Marathi, Telugu, Tamil, and Gujarati. With one click on our header switcher, the entire clinical vocabulary and interface seamlessly adapt into native regional scripts. Users can log daily symptoms, moods, and pain scores on a standardized 10-point clinical scale with delightful, encouraging micro-interactions."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 3: CarePath AI Companion (Gemini 3.8 Flash)</span>
+      <span class="scene-time">1:15 – 2:00</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>http://localhost:3000/chat</code> (Ask Saheli)<br>
+      <strong>Actions:</strong> Query cramp relief &rarr; Highlight 5-Step CarePath, WHO/FOGSI medical citation, comfort measures, and click <strong>"Add to Doctor Appointment Summary"</strong>.
+    </div>
+    <div class="dialogue-box">
+      "Next is our core breakthrough: the <strong>Ask Saheli AI Companion</strong>. Rather than a generic LLM wrapper, Saheli operates on our proprietary <strong>5-Step CarePath</strong> framework: Listen, Understand, Inform, Guide, and Prepare. Powered by Google Gemini 3.8 Flash coupled with localized clinical RAG, every answer is grounded in WHO, NHS, and FOGSI medical standards.<br><br>
+      It features real-time Emergency Triage detection for red flags like acute cyst pain or severe hemorrhage, and automatically structures talking points that users can take straight to their gynecologist."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 4: Phase-Synced Nutrition & Doctor Visit Reports</span>
+      <span class="scene-time">2:00 – 2:35</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> <code>/care</code> & <code>/my-cycle</code><br>
+      <strong>Actions:</strong> Show phase-aligned recipes &rarr; Navigate to My Cycle &rarr; Open <strong>"Doctor Summary Report"</strong> modal.
+    </div>
+    <div class="dialogue-box">
+      "Under Care & Nutrition, Saheli introduces <strong>Hormonal Nutrition Spotlight</strong>, recommending accessible, traditional Indian superfoods tailored to the four biological cycle phases — from iron-rich sprouted moong during menstruation to magnesium seeds in the luteal phase.<br><br>
+      In My Cycle, long-term symptoms aggregate into a structured, printable <strong>Clinical Summary Report</strong>, empowering women to walk into clinic visits with confidence and hard data."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 5: Sovereign Privacy & Emergency Camouflage</span>
+      <span class="scene-time">2:35 – 3:05</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> Dashboard Header Logo<br>
+      <strong>Actions:</strong> <strong>Triple-tap Saheli Logo</strong> &rarr; Calculator appears &rarr; Type <code>25 + 15 = 40</code> &rarr; Enter PIN <code>1234</code> to unlock.
+    </div>
+    <div class="dialogue-box">
+      "Finally, our defining pillar: <strong>Uncompromised Sovereignty</strong>. Compliant with the <strong>India DPDP Act 2023</strong>, zero personal health logs leave the device without user authorization.<br><br>
+      And for moments where privacy is urgently needed in public or shared spaces, a quick triple-tap on the Saheli logo triggers our <strong>Emergency Camouflage Mask</strong> — transforming the app into a fully functional calculator in milliseconds. Only entering the user's secret PIN reveals the sanctuary again."
+    </div>
+  </div>
+
+  <div class="scene-card">
+    <div class="scene-header">
+      <span class="scene-title">Scene 6: Vision & Concluding Impact</span>
+      <span class="scene-time">3:05 – 3:20</span>
+    </div>
+    <div class="screen-action-box">
+      <strong>Screen:</strong> Dashboard homepage (rest cursor gently on the Saheli logo).
+    </div>
+    <div class="dialogue-box">
+      "Saheli is reimagining FemTech for the next billion users — culturally attuned, clinically grounded, and fiercely private. Thank you!"
+    </div>
+  </div>
+
+  <!-- PRO-TIPS BOX -->
+  <div class="pro-tips-card">
+    <h3>💡 Best Practices for Recording Your Demo Video</h3>
+    <ul>
+      <li><strong>Screen Zoom:</strong> Keep your browser at 100% zoom and resolution at 1920&times;1080 (Full HD).</li>
+      <li><strong>Pacing:</strong> Do not rush. Let each screen action pause for 1–2 seconds so judges can clearly absorb the UI features.</li>
+      <li><strong>Camouflage Demo:</strong> Make sure to practice the triple-click on the Saheli logo once before recording to trigger it smoothly.</li>
+      <li><strong>Audio Quality:</strong> Use a quiet room and headphones with a mic (or OBS Studio noise suppression) for crisp audio.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Saheli (सहेली) Web Companion • AI FemTech Hackathon Submission • Generated for Team TanaySri8081
+  </div>
+
+</body>
+</html>
