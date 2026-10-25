@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCamouflage } from "@/context/CamouflageContext";
@@ -111,8 +112,15 @@ export function Header() {
           className="flex items-center gap-2.5 cursor-pointer select-none group flex-shrink-0"
           title="Triple-tap to disguise screen"
         >
-          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white font-serif text-lg italic shadow-warm-sm group-active:scale-95 transition-transform">
-            स
+          <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant/40 shadow-warm-sm group-active:scale-95 transition-transform flex-shrink-0">
+            <Image
+              src="/logo-icon.png"
+              alt="Saheli Logo"
+              width={40}
+              height={40}
+              className="w-full h-full object-cover"
+              priority
+            />
           </div>
           <div className="flex flex-col">
             <div className="flex items-baseline gap-1.5">

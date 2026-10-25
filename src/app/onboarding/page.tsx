@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCycle } from "@/context/CycleContext";
@@ -72,8 +73,14 @@ export default function OnboardingPage() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-full bg-primary text-white font-serif flex items-center justify-center text-sm font-medium">
-              स
+            <span className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30 flex items-center justify-center bg-surface-container shrink-0">
+              <Image
+                src="/logo-icon.png"
+                alt="Saheli Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
             </span>
             <span className="text-xs font-semibold text-outline uppercase tracking-wider">
               {language === "hi" ? `चरण ${step} / 3` : `Step ${step} of 3`}
