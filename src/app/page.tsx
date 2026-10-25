@@ -2,14 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCycle } from "@/context/CycleContext";
 import { getPainLevelInfo } from "@/lib/painScale";
 import { Mood, FlowIntensity } from "@/types";
 import { formatDate } from "@/lib/cycleMath";
+import { storage } from "@/lib/storage";
 
 export default function Home() {
+  const router = useRouter();
   const { language, t, speakText, isSpeaking, stopSpeaking } = useLanguage();
   const {
     profile,
@@ -20,6 +23,19 @@ export default function Home() {
     logSymptom,
     getSymptomForDate,
   } = useCycle();
+
+  const [isCheckingOnboarding, setIsCheckingOnboarding] = useState(true);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = storage.getUserProfile();
+      if (!stored.onboarding_complete) {
+        router.replace("/onboarding");
+        return;
+      }
+      setIsCheckingOnboarding(false);
+    }
+  }, [router]);
 
   const [todayStr, setTodayStr] = useState<string>("2026-10-24");
   const [greeting, setGreeting] = useState<string>(language === "hi" ? "नमस्ते" : "Good morning");
@@ -101,6 +117,19 @@ export default function Home() {
 
     speakText(summaryText);
   };
+
+  if (isCheckingOnboarding) {
+    return (
+      <div className="flex-1 w-full flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-9 h-9 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
+          <p className="text-xs text-on-surface-variant font-medium animate-pulse">
+            {language === "hi" ? "सहेली लोड हो रही है..." : "Opening Saheli..."}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="flex-1 w-full py-5 flex flex-col gap-6">
